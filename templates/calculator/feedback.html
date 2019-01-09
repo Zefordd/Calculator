@@ -1,0 +1,168 @@
+<html lang="ru">
+<head>
+    <title>Оставить отзыв</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+<header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar"  style="background: blueviolet" ><h1 style="font-size: 40pt">ClickerNumber!</h1></header>
+
+<div class="container pt-5">
+
+    <div class="row">
+        <div class="col-md-9">
+            <h1>Оставить отзыв</h1>
+        </div>
+        
+        <div class="col-md-3">
+            <form action="/">
+                <button class="btn btn-outline-success btn-sm" >Вернуться</button>
+            </form>            
+        </div>    
+        
+    </div>
+
+
+    <div class="row pt-3">
+        <div class="col-md-8">
+            <div class="form-group" id="send_feedback">
+                <textarea rows="5" cols="60" placeholder="Введите отзыв" class="form-control" v-model="feedback" v-on:keyup="unlock_button" required></textarea>
+
+                <hr>
+
+                <div class="row pt-3">
+                    <div class="col">
+                        <input type="text" maxlength="30" placeholder="Введите ваше имя*" class="form-control" v-model="name" v-on:keyup="unlock_button">
+                    </div>
+                    <div class="col">
+                        <input type="text" maxlength="30" placeholder="Введите вашу фамилию*" class="form-control" v-model="surname" v-on:keyup="unlock_button">
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col">
+                        <input type="text" maxlength="30" placeholder="Введите вашу почту*" class="form-control" v-model="email" v-on:keyup="unlock_button">
+                    </div>
+                    <div class="col">
+                        <input type="text" maxlength="11" placeholder="Введите ваш телефон*" class="form-control" v-model="phone" v-on:keyup="unlock_button" :disabled="phone_blocker">
+                    </div>
+                </div>             
+
+
+                <div class="row pt-3"></div>
+                <hr>                
+
+                <div class="row pt-3">
+                    <button class="btn btn-danger btn-lg btn-block" v-on:click="send_feedback_button" :disabled="feedback_button_blocker">Отправить отзыв</button>
+                </div>
+            </div>   
+            
+            <div class="row pt-5" id="introduce_phone_number" v-if="show_one">
+                <h2>Введите ваш номер:&nbsp{{ number }}</h2>
+                <input type="range" min="80000000000" max="89999999999" step="1" class="form-control-range" v-model="number" v-on:input="do_number_to_phone">                
+                <button class="btn btn-primary">я передумал</button>                        
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+            <h4>Альтернативные способы ввода номера</h4>
+            <ul class="list-group" id="introduce_phone_number">
+                <li class="list-group-item list-group-item-action" v-on:click="choose_var_one">умственно отсталый вариант 1</li>
+                <li class="list-group-item list-group-item-action" v-on:click="choose_var_two">умственно отсталый вариант 2</li>
+                <li class="list-group-item list-group-item-action" v-on:click="choose_var_three">умственно отсталый вариант 3</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="js/feedback.js"></script>
+
+
+<script>
+function People (feedback, name, surname, email, phone) {
+    
+    this.feedback = feedback;
+    this.name = name;
+    this.surname = surname;
+    this.email = email;
+    this.phone = phone;
+
+    this.sayHi = () => {
+        return ('Здравствуйте, ' + this.name + ' ' + this.surname + 
+        '. Ваш почтовый адрес: ' + this.email + 
+        '. Ваш номер телефона: ' + this.phone + 
+        '. Мы вам перезвоним.')
+    };
+}
+
+var send_feedback = new Vue ({
+    el: '#send_feedback',
+    data: {
+        feedback: '',
+        name: '',
+        surname: '',
+        email: '',
+        phone: '',
+        feedback_button_blocker: true,
+        phone_blocker: false,
+    },
+    methods: {
+        send_feedback_button: function () {
+            const man = new People(this.feedback, this.name, this.surname, this.email, this.phone);
+            alert(man.sayHi());
+            this.feedback = this.name = this. surname = this.email = this.phone = ''
+        },
+
+        unlock_button: function () {
+            if (this.feedback.length != 0 && this.name.length != 0 && this.surname.length != 0 && this.email.length != 0 && this.phone.length == 11) {
+                this.feedback_button_blocker = false;
+            } else {
+                this.feedback_button_blocker = true;
+            }
+        },
+    },
+})
+
+var introduce_phone_number = new Vue({
+    el: '#introduce_phone_number',
+    data: {
+        show_one: false,
+        show_two: false,
+        show_three: false,
+        number: 80000000000,
+    },
+    methods: {
+        choose_var_one: function() {
+            this.show_one = true;
+            this.show_two = this.show_three = false;
+            send_feedback.phone_blocker = true;
+            console.log(453)        
+        },
+        
+        choose_var_two: function() {
+            this.show_two = true;
+            this.show_one = this.show_three = false;
+            send_feedback.phone_blocker = true; 
+        },
+
+        choose_var_three: function() {
+            this.show_three = true;  
+            this.show_two = this.show_one = false;
+            send_feedback.phone_blocker = true;
+        },
+
+        do_number_to_phone: function() {
+            send_feedback.phone = String(this.number);
+        },
+
+    }
+  })
+
+</script>
+
+</body>
+</html>
