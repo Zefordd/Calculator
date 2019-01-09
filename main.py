@@ -8,8 +8,8 @@ from aiohttp_session import setup
 from aiohttp_session.cookie_storage import EncryptedCookieStorage
 from cryptography import fernet
 
+from routes import setup_routes, setup_static_routes
 from settings import BaseConfig
-from routes import setup_routes
 
 
 def main():
@@ -25,6 +25,9 @@ def main():
     )
 
     setup_routes(app)
+    setup_static_routes(app)
+    app['static_root_url'] = '/static'
+
     app['config'] = BaseConfig
     logging.basicConfig(level=logging.DEBUG)
     web.run_app(app, host='localhost', port=8080)
