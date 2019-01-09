@@ -7,12 +7,24 @@
         {% endblock %}
     </title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{{ static('css/vendor/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="{{ static('js/vendor/bootstrap.min.js') }}"></script>
+
+<div class="container"> 
+    {% block head %}
+    {% endblock %}
 
 </head>
 <body>
-    {% block content%}
-    {% endblock %}
+     
+
+        {% block content%}
+        {% endblock %}
+        
+</div>
+
+
 </body>
 </html>
 

@@ -6,41 +6,51 @@
 {% endblock %}
 
     
+{% block head %}
+<nav class="navbar navbar-expand-md navbar-default bg-light">
+    <div class="navbar-header">
+         <a class="navbar-brand">Calculator</a>
+    </div>
+
+          <ul class="navbar-nav  mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="">Main page</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/feedback">Feedback</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav navbar-right ">
+                {% if not user %}
+                    <li><a href="/login">Login</a></li>
+                {% endif %}
+
+                {% if user %}
+                    <form class="form-inline">
+                        <li class="nav-item">User: {{ user }}</li>&nbsp;
+                        <li class="nav-item">
+                            <a href="/logout" class=>Logout</a>
+                        </li>
+                    </form>
+                {% endif %}
+
+          </ul>
+             
+</nav>
+{% endblock %}
+
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
     <h2>Index</h2>
-    <div id="app">
+    <div id="app" >
         <h3>[[ message ]]</h3>
     </div>
-    <br><br>
-    <a href="/feedback">Feedback</a>
-    <br>
 
-    {% if not user %}
-        <a href="/login">Login</a>
-    {% endif %}
+<script src="{{ static('js/index.js') }}"></script>
 
-    <br><br>
-    <h5>{{ user }}</h5>
 
-    
-    {% if user %}
-        <a href="/logout">Logout</a>
-        <br><br>
-    {% endif %}
-
-    <script src="{{ static('js/index.js') }}"></script>
-    <!-- <script>
-            var app = new Vue({
-                el: '#app',
-                data: {
-                    message: 'Vue.js works'
-                },
-                delimiters: ['[[',']]']
-                })
-        </script> -->
-
+</div>
 {% endblock %}
 
 
