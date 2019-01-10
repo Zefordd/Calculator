@@ -34,7 +34,6 @@
                         </li>
                     </form>
                 {% endif %}
-
           </ul>
              
 </nav>
@@ -47,10 +46,66 @@
         <h3>[[ message ]]</h3>
     </div>
 
-<script src="{{ static('js/index.js') }}"></script>
 
+<div class="container">
+    <div class="row pt-3">
+            <button class="btn-lg btn-primary custom">C</button>
+            <button class="btn-lg btn-primary custom">/</button>
+            <button class="btn-lg btn-primary custom">*</button>
+            <button class="btn-lg btn-primary custom">-</button>
+    </div>
 
+    <div class="row">
+        <button class="btn-lg btn-primary custom">7</button>
+        <button class="btn-lg btn-primary custom">8</button>
+        <button class="btn-lg btn-primary custom">9</button>
+    </div>
+
+    <div class="row">
+        <button class="btn-lg btn-primary custom">4</button>
+        <button class="btn-lg btn-primary custom">5</button>
+        <button class="btn-lg btn-primary custom">6</button>
+        <button class="btn-lg btn-primary customE ">+</button>
+    </div>
+
+    <div class="row">
+        <button class="btn-lg btn-primary custom">1</button>
+        <button class="btn-lg btn-primary custom">2</button>
+        <button class="btn-lg btn-primary custom">3</button>
+    </div>
+
+    <div class="row">
+        <button class="btn-lg btn-primary custom0">0</button>
+        <button class="btn-lg btn-primary custom">.</button>
+        <button class="btn-lg btn-primary customE">Enter</button>
+    </div>
 </div>
+
+
+
+<script src="{{ static('js/index.js') }}"></script>
+</div>
+<style>
+    .custom {
+    width: 60px;
+    height: 65px;
+}
+.custom0 {
+    width: 120px;
+    height: 65px;
+    
+}
+.customE {
+    width: 60px;
+    height: 130px;
+    font-size: 100%;
+    padding-top:10px;
+    margin-top: -65px
+    
+
+}
+
+</style>
 {% endblock %}
 
 
