@@ -11,14 +11,17 @@
     <link href="{{ static('css/vendor/bootstrap.min.css') }}" rel="stylesheet">
     <script src="{{ static('js/vendor/bootstrap.min.js') }}"></script>
 
-<div class="container"> 
-    {% block head %}
-    {% endblock %}
-
 </head>
+
+
 <body>
-    {% block content%}
-    {% endblock %}
+    <div class="container"> 
+        {% block head %}
+        {% endblock %}
+
+        {% block content%}
+        {% endblock %}
+        
 </div>
 
 

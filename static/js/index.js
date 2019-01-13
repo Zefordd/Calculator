@@ -1,7 +1,7 @@
 var app = new Vue({
-    el: '#app',
+    el: '#calculator',
     data: {
-        message: 'Vue.js works with static'
-    },
-    delimiters: ['[[',']]']
+        messages: 'index',
+      },
+      delimiters: ['[[',']]']
     })

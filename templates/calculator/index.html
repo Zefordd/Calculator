@@ -39,78 +39,57 @@
 </nav>
 {% endblock %}
 
+
 {% block content %}
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <h2>Index</h2>
-    <div id="app" >
-        <h3>[[ message ]]</h3>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <link href="{{ static('css/calculator.css') }}" rel="stylesheet">
+    </head>
+
+
+    <div class="container">
+        <div id="calculator">
+            <input id="screen" type="text" v-model="valueDisplayed" />
+            <h3>[[ messages ]]</h3>
+            <div class="calculator">
+                <div class="btn b" @click="clear">C</div>
+                <div class="btn b" @click="handleOp('*')">*</div>
+                <div class="btn b" @click="handleOp('/')">/</div>
+                <div class="btn b" @click="handleOp('-')">-</div>
+
+                <div class="btn" @click="handleDigit(7)">7</div>
+                <div class="btn" @click="handleDigit(8)">8</div>
+                <div class="btn" @click="handleDigit(9)">9</div>
+
+
+                <div class="btn" @click="handleDigit(4)">4</div>
+                <div class="btn" @click="handleDigit(5)">5</div>
+                <div class="btn" @click="handleDigit(6)">6</div>
+                <div class="btn plus b" @click="handleOp('+')">+</div>
+
+                <div class="btn" @click="handleDigit(1)">1</div>
+                <div class="btn" @click="handleDigit(2)">2</div>
+                <div class="btn" @click="handleDigit(3)">3</div>
+
+                <div class="btn zero" @click="handleDigit(0)">0</div>
+                <!-- <div class="btn" @click="handleDigit('.')">.</div> -->
+                <div class="btn enter b" @click="handleOp('=')">=</div>
+            </div>
+
+    </div>
     </div>
 
 
-<div class="container">
-    <div class="row pt-5">
-        <input type="text" class="width=520px">
+
+    <script src="{{ static('js/calculator.js') }}"></script>
+
     </div>
 
-    <div class="row pt-2">
-            <button class="btn-lg btn-primary custom">C</button>
-            <button class="btn-lg btn-primary custom">/</button>
-            <button class="btn-lg btn-primary custom">*</button>
-            <button class="btn-lg btn-primary custom">-</button>
-    </div>
-
-    <div class="row">
-        <button class="btn-lg btn-primary custom">7</button>
-        <button class="btn-lg btn-primary custom">8</button>
-        <button class="btn-lg btn-primary custom">9</button>
-    </div>
-
-    <div class="row">
-        <button class="btn-lg btn-primary custom">4</button>
-        <button class="btn-lg btn-primary custom">5</button>
-        <button class="btn-lg btn-primary custom">6</button>
-        <button class="btn-lg btn-primary customE ">+</button>
-    </div>
-
-    <div class="row">
-        <button class="btn-lg btn-primary custom">1</button>
-        <button class="btn-lg btn-primary custom">2</button>
-        <button class="btn-lg btn-primary custom">3</button>
-    </div>
-
-    <div class="row">
-        <button class="btn-lg btn-primary custom0">0</button>
-        <button class="btn-lg btn-primary custom">.</button>
-        <button class="btn-lg btn-primary customE">Enter</button>
-    </div>
-
-</div>
 
 
-
-<script src="{{ static('js/index.js') }}"></script>
-</div>
-<style>
-    .custom {
-    width: 60px;
-    height: 65px;
-}
-.custom0 {
-    width: 120px;
-    height: 65px;
-    
-}
-.customE {
-    width: 60px;
-    height: 130px;
-    font-size: 100%;
-    padding-top:10px;
-    margin-top: -65px
-    
-
-}
-
-</style>
+    <style>
+        
+    </style>
 {% endblock %}
 
 
