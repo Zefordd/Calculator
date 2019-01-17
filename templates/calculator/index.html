@@ -11,45 +11,76 @@
         <link href="{{ static('css/calculator.css') }}" rel="stylesheet">
     </head>
 
-    <br><br>
-
-    <div class="container">
+    <div class="container pt-5">
         <div id="calculator">
             <div class="row">
-                <input class="screen" type="text" v-model="valueDisplayed" readonly>
-            </div>
-
-            <div class="row">
-
-                <div class="calculator">
-                        <div class="btn  btn-primary b" @click="clear">C</div>
-                        <div class="btn  btn-primary b" @click="handleOp('*')">*</div>
-                        <div class="btn  btn-primary b" @click="handleOp('/')">/</div>
-                        <div class="btn  btn-primary b" @click="handleOp('-')">-</div>
-        
-                        <div class="btn btn-primary" @click="handleDigit(7)">7</div>
-                        <div class="btn btn-primary" @click="handleDigit(8)">8</div>
-                        <div class="btn btn-primary" @click="handleDigit(9)">9</div>
-        
-        
-                        <div class="btn btn-primary" @click="handleDigit(4)">4</div>
-                        <div class="btn btn-primary" @click="handleDigit(5)">5</div>
-                        <div class="btn btn-primary"  @click="handleDigit(6)">6</div>
-                        <div class="btn plus b btn-primary" @click="handleOp('+')">+</div>
-        
-                        <div class="btn btn-primary" @click="handleDigit(1)">1</div>
-                        <div class="btn btn-primary" @click="handleDigit(2)">2</div>
-                        <div class="btn btn-primary" @click="handleDigit(3)">3</div>
-        
-                        <div class="btn zero btn-primary" @click="handleDigit(0)">0</div>
-                        <!-- <div class="btn" @click="handleDigit('.')">.</div> -->
-                        <div class="btn enter btn-primary b" @click="handleOp('=')">=</div>
+                <div class="col-4">
+                    <div class="row">
+                        <input class="screen" type="text" v-model="valueDisplayed" readonly>
+                    </div>
+                    <div class="row">
+                            <div class="calculator ">
+                                <div class="btn  btn-primary b" @click="clear">C</div>
+                                <div class="btn  btn-primary b" @click="handleOp('*')">*</div>
+                                <div class="btn  btn-primary b" @click="handleOp('/')">/</div>
+                                <div class="btn  btn-primary b" @click="handleOp('-')">-</div>
+                
+                                <div class="btn btn-primary" @click="handleDigit(7)">7</div>
+                                <div class="btn btn-primary" @click="handleDigit(8)">8</div>
+                                <div class="btn btn-primary" @click="handleDigit(9)">9</div>
+                
+                                <div class="btn btn-primary" @click="handleDigit(4)">4</div>
+                                <div class="btn btn-primary" @click="handleDigit(5)">5</div>
+                                <div class="btn btn-primary"  @click="handleDigit(6)">6</div>
+                                <div class="btn plus b btn-primary" @click="handleOp('+')">+</div>
+                
+                                <div class="btn btn-primary" @click="handleDigit(1)">1</div>
+                                <div class="btn btn-primary" @click="handleDigit(2)">2</div>
+                                <div class="btn btn-primary" @click="handleDigit(3)">3</div>
+                
+                                <div class="btn zero btn-primary" @click="handleDigit(0)">0</div>
+                                <div class="btn enter btn-primary b" @click="handleOp('=')">=</div>
+                            </div>
+                    </div>
                 </div>
 
-            </div>
-            
+                {% if not user %}
+                <div class="col-8">
+                    <div class="row">
+                        <h4>Чтобы увидеть дополнительный контент, пожалуйста, залогиньтесь</h4>
+                    </div>
+                </div>
+                {% endif %}
 
-    </div>
+                {% if user %}
+                    <div class="col-7">
+                        <div class="row">
+                            <h1>Welcome User</h1>
+                            <h3>В будущем здесь будет контент для зарегистрированных пользователей</h3>
+                        </div> 
+
+                        <div class="row">
+                            <div class="col-4">
+                            </div>
+                            <div class="col-4">
+                                <!-- <input id="dem" type="number" name="dem"  value="5">
+                                <button class="btn"></button> -->
+                                <ul>
+                                    {% if A %}
+                                        {% for i in A %}
+                                            <br>
+                                            {% for j in i %}
+                                                {{ j }} 
+                                            {% endfor %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
     <script src="{{ static('js/calculator.js') }}"></script>

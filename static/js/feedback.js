@@ -28,6 +28,8 @@ var send_feedback = new Vue ({
         show_one: false,
         show_two: false,
         show_three: false,
+        number: 80000000000
+
     },
     methods: {
         send_feedback_button: function () {
@@ -45,6 +47,7 @@ var send_feedback = new Vue ({
         },
 
         choose_var_one: function() {
+            this.phone = '80000000000'
             this.show_one = true;
             this.show_two = this.show_three = false;
             this.phone_blocker = true;
@@ -52,6 +55,7 @@ var send_feedback = new Vue ({
         },
         
         choose_var_two: function() {
+            this.phone = '80000000000'
             this.show_two = true;
             this.show_one = this.show_three = false;
             this.phone_blocker = true;
@@ -59,6 +63,7 @@ var send_feedback = new Vue ({
         },
 
         choose_var_three: function() {
+            this.phone = '80000000000'
             this.show_three = true;  
             this.show_two = this.show_one = false;
             this.phone_blocker = true;
@@ -82,4 +87,5 @@ var send_feedback = new Vue ({
             this.phone = String(this.phone)
         },
     },
+    delimiters: ['[[',']]']
 })

@@ -58,31 +58,59 @@
                 <li class="list-group-item list-group-item-action" v-on:click="choose_var_three">вариант 3</li>
             </ul>
 
-            <div class="row pt-5" v-if="show_one">
-                    <h6>Введите ваш номер</h6>
-                    <input type="range" min="80000000000" max="89999999999" step="1" class="form-control-range" v-model="number" v-on:input="do_number_to_phone">                
-                    <hr>
-                    <button class="btn btn-primary" v-on:click="alt_panel = true; show_one = false; phone_blocker = false">я передумал</button>                        
+            <div v-if="show_one">
+                <div class="col">
+                    <div class="row pt-5">
+                        <h6>Пролистните ваш номер: [[ phone ]]</h6>
+                        <hr>
+                    </div>
+                    <div class="row pt-2">
+                        <input type="range" min="80000000000" max="89999999999" step="1" class="form-control-range" v-model="number"  v-on:input="do_number_to_phone">
+                    </div>
+                    <div class="row pt-2">
+                        <button class="btn btn-primary" v-on:click="alt_panel = true; show_one = false; phone_blocker = false">я передумал</button>  
+                    </div>
+                </div>                                                      
             </div>
 
             <div v-if="show_two">
+                <div class="col">
                     <div class="row pt-5">
-                        <h6>Это ваш номер?</h6>
+                        <h6>Это ваш номер: [[ phone ]] ?</h6>
+                        <hr>
                     </div>
-                    <div class="row">
-                        <button class="btn btn-primary" v-on:click="randomize_number">нет</button>
-                        <button class="btn btn-secondary" v-on:click="alt_panel = true; show_two = false; phone_blocker = false">да</button>
+                    <div class="row pt-2">
+                        <div class="col-6">
+                            <button class="btn btn-primary btn-lg" v-on:click="randomize_number">нет</button>
+                        </div>
+
+                        <div class="col-6">
+                            <button class="btn btn-secondary btn-lg" v-on:click="alt_panel = true; show_two = false; phone_blocker = false">да</button>
+                        </div>
                     </div>                                   
-                    <hr>                    
+                    <hr>  
+                </div>                  
             </div>
 
-            <div class="row pt-5" v-if="show_three">
-                    <h6>Введите ваш номер</h6>
-                    <button class="btn btn-primary" v-on:click="sum_one_number">+</button>         
-                    <hr>
-                    <button class="btn btn-primary" v-on:click="alt_panel = true; show_three = false; phone_blocker = false">хватит</button>                        
-            </div>
+            <div v-if="show_three">
+                <div class="col">
+                    <div class="row pt-5">
+                        <h6>Сложите ваш номер: [[ phone ]]</h6>
+                        <hr>
+                    </div>
 
+                    <div class="col">
+                        <div class="row pt-2">
+                            <div class="col-3">
+                                <button class="btn btn-primary" v-on:click="sum_one_number">+</button> 
+                            </div>
+                            <div class="col-9">
+                                <button class="btn btn-danger" v-on:click="alt_panel = true; show_three = false; phone_blocker = false">хватит</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+            </div>
         </div>
     </div>
 </div>
