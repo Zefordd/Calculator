@@ -10,12 +10,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{{ static('css/vendor/bootstrap.min.css') }}" rel="stylesheet">
     <script src="{{ static('js/vendor/bootstrap.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 </head>
 
 
 <body>
+    <div class="container" style="font-size: 25px"> 
+        <nav class="navbar navbar-expand-md navbar-default bg-light">        
+                    <ul class="navbar-nav  mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Main page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/feedback">Feedback</a>
+                    </li>
+                    </ul>
+        
+                    <ul class="navbar-nav navbar-right ">
+                        {% if not user %}
+                            <li><a href="/login">Login</a></li>
+                        {% endif %}
+        
+                        {% if user %}
+                            <form class="form-inline">
+                                <li class="nav-item">User: {{ user }}</li>&nbsp;
+                                <li class="nav-item">
+                                    <a href="/logout" class=>Logout</a>
+                                </li>
+                            </form>
+                        {% endif %}
+                    </ul>                        
+        </nav>
+    </div>
 
         {% block head %}
         {% endblock %}

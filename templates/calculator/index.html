@@ -5,77 +5,49 @@
     Main page calculator
 {% endblock %}
 
-    
-{% block head %}
-<div class="container"> 
-<nav class="navbar navbar-expand-md navbar-default bg-light">
-    <div class="navbar-header">
-         <a class="navbar-brand">Calculator</a>
-    </div>
-
-          <ul class="navbar-nav  mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Main page</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/feedback">Feedback</a>
-            </li>
-          </ul>
-
-          <ul class="navbar-nav navbar-right ">
-                {% if not user %}
-                    <li><a href="/login">Login</a></li>
-                {% endif %}
-
-                {% if user %}
-                    <form class="form-inline">
-                        <li class="nav-item">User: {{ user }}</li>&nbsp;
-                        <li class="nav-item">
-                            <a href="/logout" class=>Logout</a>
-                        </li>
-                    </form>
-                {% endif %}
-          </ul>
-             
-</nav>
-</div>
-{% endblock %}
-
 
 {% block content %}
     <head>
         <link href="{{ static('css/calculator.css') }}" rel="stylesheet">
     </head>
 
+    <br><br>
 
     <div class="container">
         <div id="calculator">
-            <input id="screen" type="text" v-model="valueDisplayed" />
-            <h3>[[ messages ]]</h3>
-            <div class="calculator">
-                <div class="btn b" @click="clear">C</div>
-                <div class="btn b" @click="handleOp('*')">*</div>
-                <div class="btn b" @click="handleOp('/')">/</div>
-                <div class="btn b" @click="handleOp('-')">-</div>
-
-                <div class="btn" @click="handleDigit(7)">7</div>
-                <div class="btn" @click="handleDigit(8)">8</div>
-                <div class="btn" @click="handleDigit(9)">9</div>
-
-
-                <div class="btn" @click="handleDigit(4)">4</div>
-                <div class="btn" @click="handleDigit(5)">5</div>
-                <div class="btn" @click="handleDigit(6)">6</div>
-                <div class="btn plus b" @click="handleOp('+')">+</div>
-
-                <div class="btn" @click="handleDigit(1)">1</div>
-                <div class="btn" @click="handleDigit(2)">2</div>
-                <div class="btn" @click="handleDigit(3)">3</div>
-
-                <div class="btn zero" @click="handleDigit(0)">0</div>
-                <!-- <div class="btn" @click="handleDigit('.')">.</div> -->
-                <div class="btn enter b" @click="handleOp('=')">=</div>
+            <div class="row">
+                <input class="screen" type="text" v-model="valueDisplayed" readonly>
             </div>
+
+            <div class="row">
+
+                <div class="calculator">
+                        <div class="btn b" @click="clear">C</div>
+                        <div class="btn b" @click="handleOp('*')">*</div>
+                        <div class="btn b" @click="handleOp('/')">/</div>
+                        <div class="btn b" @click="handleOp('-')">-</div>
+        
+                        <div class="btn" @click="handleDigit(7)">7</div>
+                        <div class="btn" @click="handleDigit(8)">8</div>
+                        <div class="btn" @click="handleDigit(9)">9</div>
+        
+        
+                        <div class="btn" @click="handleDigit(4)">4</div>
+                        <div class="btn" @click="handleDigit(5)">5</div>
+                        <div class="btn" @click="handleDigit(6)">6</div>
+                        <div class="btn plus b" @click="handleOp('+')">+</div>
+        
+                        <div class="btn" @click="handleDigit(1)">1</div>
+                        <div class="btn" @click="handleDigit(2)">2</div>
+                        <div class="btn" @click="handleDigit(3)">3</div>
+        
+                        <div class="btn zero" @click="handleDigit(0)">0</div>
+                        <!-- <div class="btn" @click="handleDigit('.')">.</div> -->
+                        <div class="btn enter b" @click="handleOp('=')">=</div>
+                </div>
+
+            </div>
+            
 
     </div>
     </div>

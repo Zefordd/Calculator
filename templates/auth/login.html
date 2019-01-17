@@ -4,54 +4,17 @@
     login
 {% endblock %}
 
-    
-{% block head %}
-<head> <link href="{{ static('css/login.css') }}" rel="stylesheet"> </head>
 
-<div class="container"> 
-    <nav class="navbar navbar-expand-md navbar-default bg-light">
-        <div class="navbar-header">
-                <a class="navbar-brand">Calculator</a>
-        </div>
-    
-                <ul class="navbar-nav  mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Main page</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/feedback">Feedback</a>
-                </li>
-                </ul>
-    
-                <ul class="navbar-nav navbar-right ">
-                    {% if not user %}
-                        <li><a href="/login">Login</a></li>
-                    {% endif %}
-    
-                    {% if user %}
-                        <form class="form-inline">
-                            <li class="nav-item">User: {{ user }}</li>&nbsp;
-                            <li class="nav-item">
-                                <a href="/logout" class=>Logout</a>
-                            </li>
-                        </form>
-                    {% endif %}
-                </ul>
-                    
-    </nav>
-</div>
-{% endblock %}
 
 {% block content %}
-<div class="container" id="login">
-    <div class="row pt-5 d-flex justify-content-center">   
-            {{ sos }}     
+<div class="container" id="loginpage" style="font-size: 25px">
+    <div class="row pt-5 d-flex justify-content-center">       
         <form action="/login" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
-            <div class="row pt-4 d-flex justify-content-center">
-                    <h5>Вход</h5>
+            <div class="row pt-5 d-flex justify-content-center">
+                    <h5 style="font-size: 40px">Вход</h5>
             </div>
 
-            <div class="row pt-2 d-flex justify-content-center">
+            <div class="row pt-3 d-flex justify-content-center">
                 <input id="login" name="login" type="text" value="" autofocus>
             </div>
 
@@ -59,30 +22,32 @@
                 <input id="password" name="password" type="password" value="">
             </div>
 
-            <div class="row pt-2 d-flex justify-content-end" v-on:click="show_password = true">
-                    <a href="##" style="font-size: 15px">Не помню пароль :(</a>
+            <div class="row pt-3 d-flex justify-content-end">
+                    <a href="##" style="font-size: 15px" v-on:click="show_password = true">Не помню пароль :(</a>
             </div>
 
- <!--            <div class="row pt-2" v-if="show_password">
+            <div class="row pt-2 justify-content-center" v-show="show_password">
                 <h6>Ваш логин: admin</h6>
             </div>
 
-            <div class="row pt-2" v-if="show_password">
+            <div class="row pt-2 justify-content-center" v-if="show_password">
                 <h6>Ваш пароль: admin</h6>
-            </div> -->
+            </div>
 
-            <div class="row pt-2 d-flex justify-content-center">
-                <input type="submit" value="Login" class="btn btn-success btn-sm btn-block">
+            <div class="row pt-3 d-flex justify-content-center">
+                <input type="submit" value="Login" class="btn btn-success btn-sm btn-block" style="font-size: 20px">
             </div>
         </form>
     </div>
 
     
-
+    <br><br><br><br><br>
     <div class="row pt-5 justify-content-center">
         <h6>{{ exception }}</h6>    
         <h6>{{ last_visit }}</h6>
     </div>
-
 </div>
+
+<script src="{{ static('js/loginpage.js') }}"></script>
+
 {% endblock %}

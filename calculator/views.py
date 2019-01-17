@@ -15,6 +15,6 @@ class Index(web.View):
         return dict(user=user)
 
 class Feedback(web.View):
-    @aiohttp_jinja2.template('calculator/feedback.html')
+    @aiohttp_jinja2.template('feedback/feedback.html')
     async def get(self):
         pass

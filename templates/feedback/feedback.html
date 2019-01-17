@@ -5,44 +5,6 @@
     Feedback
 {% endblock %}
 
-    
-{% block head %}
-<head> <link href="{{ static('css/feedback.css') }}" rel="stylesheet"> </head>
-
-<div class="container"> 
-    <nav class="navbar navbar-expand-md navbar-default bg-light">
-        <div class="navbar-header">
-                <a class="navbar-brand">Calculator</a>
-        </div>
-    
-                <ul class="navbar-nav  mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Main page</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/feedback">Feedback</a>
-                </li>
-                </ul>
-    
-                <ul class="navbar-nav navbar-right ">
-                    {% if not user %}
-                        <li><a href="/login">Login</a></li>
-                    {% endif %}
-    
-                    {% if user %}
-                        <form class="form-inline">
-                            <li class="nav-item">User: {{ user }}</li>&nbsp;
-                            <li class="nav-item">
-                                <a href="/logout" class=>Logout</a>
-                            </li>
-                        </form>
-                    {% endif %}
-                </ul>
-                    
-    </nav>
-</div>
-{% endblock %}
-
 
 {% block content %}
 <div class="container pt-5" id="send_feedback">
@@ -96,14 +58,14 @@
                 <li class="list-group-item list-group-item-action" v-on:click="choose_var_three">вариант 3</li>
             </ul>
 
-            <div class="row pt-5" id="introduce_phone_number" v-if="show_one">
+            <div class="row pt-5" v-if="show_one">
                     <h6>Введите ваш номер</h6>
                     <input type="range" min="80000000000" max="89999999999" step="1" class="form-control-range" v-model="number" v-on:input="do_number_to_phone">                
                     <hr>
                     <button class="btn btn-primary" v-on:click="alt_panel = true; show_one = false; phone_blocker = false">я передумал</button>                        
             </div>
 
-            <div id="introduce_phone_number" v-if="show_two">
+            <div v-if="show_two">
                     <div class="row pt-5">
                         <h6>Это ваш номер?</h6>
                     </div>
@@ -114,7 +76,7 @@
                     <hr>                    
             </div>
 
-            <div class="row pt-5" id="introduce_phone_number" v-if="show_three">
+            <div class="row pt-5" v-if="show_three">
                     <h6>Введите ваш номер</h6>
                     <button class="btn btn-primary" v-on:click="sum_one_number">+</button>         
                     <hr>

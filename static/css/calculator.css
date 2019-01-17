@@ -1,5 +1,5 @@
 
-* { font-size: 25px }
+/* * { font-size: 25px } */
 
 .btn {
   cursor: pointer;
@@ -10,7 +10,7 @@
   align-items: center;
   color: #FAFAFA;
   border: 1px solid #222;
-  border-radius: 4px;
+  border-radius: 0px;
   background: #777;
 }
 
@@ -22,18 +22,19 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(30px, auto);
-  box-shadow: 5px 10px 8px #888888;
 }
 
-#screen {
-    margin: 0;
+.screen {
+    padding-top: 50px;
     width: 300px;
+    height: 100px;
     text-align: right;
     border: none;
     color: #FFFFFF;
     background-color: #1d1f20;
     border-radius: 0;
     display: grid;
+    font-size: 65px;
 }
 
 .zero {
@@ -51,4 +52,5 @@
 }
 .b {
     background: steelblue
+    /* background: red */
 }

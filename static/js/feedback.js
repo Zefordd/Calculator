@@ -83,4 +83,3 @@ var send_feedback = new Vue ({
         },
     },
 })
-
