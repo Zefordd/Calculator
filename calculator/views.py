@@ -32,17 +32,15 @@ class Spiral(web.View):
     spiral = ''
     async def post(self):
         data = await self.post()
-        print(Spiral.spiral)
         Spiral.spiral =  await make_spiral(data['dimension'])
-        print(Spiral.spiral)
         return web.HTTPFound(location=self.app.router['index'].url_for())
 
 
 
 
 async def make_spiral(n):
-    if n == '':
-        return
+    if n == '0' or n == '':
+        return 
     n = int(n)
     A = [[0 for i in range(n)]for j in range(n)]
     k = 1
@@ -68,5 +66,4 @@ async def make_spiral(n):
         b += 1
         n -= 1
         i,j = 0,0
-    spiral = A
-    return spiral
+    return A

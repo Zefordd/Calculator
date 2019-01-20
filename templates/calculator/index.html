@@ -56,7 +56,6 @@
                     <div class="col-7">
                         <div class="row">
                             <h1>Welcome User</h1>
-                            <h3>В будущем здесь будет контент для зарегистрированных пользователей</h3>
                         </div> 
 
                         <div class="row">
@@ -68,18 +67,18 @@
                                     <input id="dimension" name="dimension" type="number" value="">
                                     <input type="submit" value="Закрутить">
                                 </form>
-                                    <ul>
-                                        {% if spiral %}
-                                            {% for i in spiral %}
-                                                <br>
-                                                {% for j in i %}
-                                                    {{ j }} 
-                                                {% endfor %}
+                                <br>
+                                {% if spiral %}
+                                    <table class="table table-bordered">
+                                        {% for i in spiral %}
+                                        <tr>
+                                            {% for j in i %}
+                                                <td>{{j}}</td>
                                             {% endfor %}
-                                        {% endif %}
-                                    </ul>
-
-
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
