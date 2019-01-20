@@ -9,23 +9,15 @@ class Index(web.View):
 
     @aiohttp_jinja2.template('calculator/index.html')
     async def get(self):
-        session = await get_session(self)
-        user = ''
         spiral = Spiral.spiral
-        if 'user' in session:
-            user = session['user']
-        return dict(user=user, spiral=spiral)
+        return dict(spiral=spiral)
 
 
 class Feedback(web.View):
 
     @aiohttp_jinja2.template('feedback/feedback.html')
     async def get(self):
-        session = await get_session(self)
-        user = ''
-        if 'user' in session:
-            user = session['user']
-        return dict(user=user)
+        pass
 
 
 class Spiral(web.View):

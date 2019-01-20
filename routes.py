@@ -12,7 +12,6 @@ def setup_routes(app):
     app.router.add_get('/feedback', Feedback.get, name='feedback')
 
     app.router.add_post('/spiral', Spiral.post, name='spiral')
-    #app.router.add_post('/spiral', Spiral.post, name='spiral')
 
 
 def setup_static_routes(app):

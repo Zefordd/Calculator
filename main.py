@@ -4,12 +4,21 @@ import logging
 import aiohttp_jinja2
 import jinja2
 from aiohttp import web
-from aiohttp_session import setup
+from aiohttp_session import setup, get_session
 from aiohttp_session.cookie_storage import EncryptedCookieStorage
 from cryptography import fernet
 
 from routes import setup_routes, setup_static_routes
 from settings import BaseConfig
+
+
+async def current_user(request):
+    session = await get_session(request)
+    user = None
+    if 'user' in session:
+        user = session['user']
+
+    return dict(user=user)
 
 
 def main():
@@ -21,8 +30,9 @@ def main():
 
     aiohttp_jinja2.setup(
         app,
-        loader=jinja2.PackageLoader(package_name='main', package_path='templates')
-    )
+        loader=jinja2.PackageLoader(package_name='main', package_path='templates'),
+        context_processors=[current_user])
+    
 
     setup_routes(app)
     setup_static_routes(app)
