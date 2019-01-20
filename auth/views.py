@@ -6,8 +6,8 @@ from aiohttp_session import get_session
 
 
 class Login(web.View):
+    
     @aiohttp_jinja2.template('auth/login.html')
-
     async def get(self):
         session = await get_session(self)
         session['last_visit'] = str(datetime.utcnow())
@@ -38,3 +38,4 @@ class Logout(web.View):
         del session['user']
         location = self.app.router['index'].url_for()
         return web.HTTPFound(location=location)
+

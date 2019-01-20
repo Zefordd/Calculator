@@ -60,21 +60,26 @@
                         </div> 
 
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-7">
                             </div>
-                            <div class="col-4">
-                                <!-- <input id="dem" type="number" name="dem"  value="5">
-                                <button class="btn"></button> -->
-                                <ul>
-                                    {% if A %}
-                                        {% for i in A %}
-                                            <br>
-                                            {% for j in i %}
-                                                {{ j }} 
+                            <div class="col-7">
+                                
+                                <form action="/spiral"  method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                                    <input id="dimension" name="dimension" type="number" value="">
+                                    <input type="submit" value="Закрутить">
+                                </form>
+                                    <ul>
+                                        {% if spiral %}
+                                            {% for i in spiral %}
+                                                <br>
+                                                {% for j in i %}
+                                                    {{ j }} 
+                                                {% endfor %}
                                             {% endfor %}
-                                        {% endfor %}
-                                    {% endif %}
-                                </ul>
+                                        {% endif %}
+                                    </ul>
+
+
                             </div>
                         </div>
                     </div>
