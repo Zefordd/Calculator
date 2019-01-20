@@ -24,7 +24,6 @@ var send_feedback = new Vue ({
         phone: '',
         feedback_button_blocker: true,
         phone_blocker: false,
-        alt_panel: true,
         show_one: false,
         show_two: false,
         show_three: false,
@@ -35,6 +34,7 @@ var send_feedback = new Vue ({
         send_feedback_button: function () {
             const man = new People(this.feedback, this.name, this.surname, this.email, this.phone);
             alert(man.sayHi());
+            this.feedback_button_blocker = true;
             this.feedback = this.name = this. surname = this.email = this.phone = ''
         },
 
@@ -50,8 +50,7 @@ var send_feedback = new Vue ({
             this.phone = '80000000000'
             this.show_one = true;
             this.show_two = this.show_three = false;
-            this.phone_blocker = true;
-            this.alt_panel = false;      
+            this.phone_blocker = true;     
         },
         
         choose_var_two: function() {
@@ -59,7 +58,6 @@ var send_feedback = new Vue ({
             this.show_two = true;
             this.show_one = this.show_three = false;
             this.phone_blocker = true;
-            this.alt_panel = false; 
         },
 
         choose_var_three: function() {
@@ -67,7 +65,6 @@ var send_feedback = new Vue ({
             this.show_three = true;  
             this.show_two = this.show_one = false;
             this.phone_blocker = true;
-            this.alt_panel = false;
         },
 
         do_number_to_phone: function() {

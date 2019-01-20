@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    metronome
+{% endblock %}
+
+
+{% block content %}
+<div class="container" id="metronome">
+    <div class="row">
+        <div class="col">
+            <h1>[[ beats_per_minute ]] уд/мин</h1>
+            <input type="range" min="20" max="218" step="1" class="form-control-range" v-model="beats_per_minute">
+            <div class="w-100"></div>
+            <button v-on:click="start_metronome">старт</button>
+            <button v-on:click="start = false">стоп</button>
+            [[ start ]]
+
+        </div>
+
+    </div>
+</div>
+
+<script src="{{ static('js/metronome.js') }}"></script>
+{% endblock %}

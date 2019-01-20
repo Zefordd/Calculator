@@ -1,5 +1,5 @@
 from auth.views import Login, Logout
-from calculator.views import Index, Feedback, Spiral, Metronom
+from calculator.views import Index, Feedback, Spiral, Metronome
 
 from settings import BaseConfig
 
@@ -10,7 +10,7 @@ def setup_routes(app):
     app.router.add_post('/login', Login.post)
     app.router.add_get('/logout', Logout.get, name='logout')
     app.router.add_get('/feedback', Feedback.get, name='feedback')
-    app.router.add_get('/metronom', Metronom.get, name='metronom')
+    app.router.add_get('/metronome', Metronome.get, name='metronome')
 
     app.router.add_post('/spiral', Spiral.post, name='spiral')
 

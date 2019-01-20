@@ -19,9 +19,9 @@ class Feedback(web.View):
     async def get(self):
         pass
 
-class Metronom(web.View):
+class Metronome(web.View):
 
-    @aiohttp_jinja2.template('metronom/metronom.html')
+    @aiohttp_jinja2.template('metronome/metronome.html')
     async def get(self):
         pass
 
