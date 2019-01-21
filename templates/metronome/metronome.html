@@ -8,15 +8,29 @@
 
 {% block content %}
 <div class="container" id="metronome">
-    <div class="row">
-        <div class="col">
-            <h1>[[ beats_per_minute ]] уд/мин</h1>
+    <div class="row pt-5">
+        <div class="col-6 alert alert-primary">
+            <h1>Метроном</h1>
+            <div class="w-100"></div>
+            <h2>[[ beats_per_minute ]] уд/мин</h2>
             <input type="range" min="20" max="218" step="1" class="form-control-range" v-model="beats_per_minute">
             <div class="w-100"></div>
-            <button v-on:click="start_metronome">старт</button>
-            <button v-on:click="start = false">стоп</button>
+            <button v-on:click="start_metronome">Start</button>
+            <button v-on:click="start = false">Stop</button>
             [[ start ]]
+        </div>
+        <div class="col-6 alert alert-primary">
+            <h1>Таймер</h1>
+            <h6>минуты:секунды</h6>
+            <div class="w-100"></div>
 
+            <input type="number" min="0" max="59" v-model="minutes">
+            :
+            <input type="number" min="0" max="59" v-model="seconds">
+            <div class="w-100"></div>
+
+            <button v-on:click="start_timer">Start</button>
+            <button>Stop</button>
         </div>
 
     </div>
