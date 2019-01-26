@@ -27,8 +27,10 @@ var send_feedback = new Vue ({
         show_one: false,
         show_two: false,
         show_three: false,
-        number: 80000000000
-
+        show_Jesus: false,
+        show_enough: false,
+        end_game: false,
+        number: 80000000000,
     },
     methods: {
         send_feedback_button: function () {
@@ -49,22 +51,27 @@ var send_feedback = new Vue ({
         choose_var_one: function() {
             this.phone = '80000000000'
             this.show_one = true;
-            this.show_two = this.show_three = false;
+            this.show_two = this.show_three = this.show_Jesus = false;
             this.phone_blocker = true;     
         },
         
         choose_var_two: function() {
             this.phone = '80000000000'
             this.show_two = true;
-            this.show_one = this.show_three = false;
+            this.show_one = this.show_three = this.show_Jesus = false;
             this.phone_blocker = true;
         },
 
         choose_var_three: function() {
             this.phone = '80000000000'
             this.show_three = true;  
-            this.show_two = this.show_one = false;
+            this.show_two = this.show_one = this.show_Jesus = false;
             this.phone_blocker = true;
+        },
+
+        choose_var_Jesus: function () {
+            this.phone = '8';
+            this.show_Jesus = true;
         },
 
         do_number_to_phone: function() {
@@ -82,6 +89,10 @@ var send_feedback = new Vue ({
             this.phone = Number(this.phone)
             this.phone += 1;
             this.phone = String(this.phone)
+        },
+
+        delete_last_string_element: function(str) {
+            return str.substring(0, str.length - 1)
         },
     },
     delimiters: ['[[',']]']
