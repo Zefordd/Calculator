@@ -75,7 +75,7 @@ const ctx = cvs.getContext("2d");
 document.addEventListener("click",moveUp);
 document.addEventListener("keydown",moveUp);
 ctx.strokeRect(0, 0, cvs.width, cvs.height);
-ctx.fillText('press page up for jump', 50, 50);
+ctx.fillText('press page up or click for jump', 50, 50);
 
 //===constants===
 const bird_init_position_x = 15;

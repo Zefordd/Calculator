@@ -92,7 +92,12 @@ var send_feedback = new Vue ({
         },
 
         delete_last_string_element: function(str) {
-            return str.substring(0, str.length - 1)
+            if (str.length != 1) {
+                return str.substring(0, str.length - 1);
+            } else {
+                return str;
+            }
+            
         },
     },
     delimiters: ['[[',']]']
