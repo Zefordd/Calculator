@@ -46,5 +46,5 @@ class User(Base):
             print('wrong password or empty slot')
 
 
-User.create_new_user_test('qqqqqq', 'qweqwe', 'qweqwe')
+
 
