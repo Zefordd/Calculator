@@ -3,7 +3,7 @@ var metronome = new Vue ({
     data: {
         start: false,
         beats_per_minute: 60,
-        audio: new Audio("../../static/tick.wav"), //так ток инвалиды делают, помогите
+        audio: new Audio("../../static/Sounds/tick.wav"),
 
         minutes: 10,
         seconds: 15,
