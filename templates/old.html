@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{{ static('css/vendor/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ static('css/base.css') }}" rel="stylesheet">
+    <script src="{{ static('js/vendor/bootstrap.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+
+<body onresize="base.switch_on_mobile_mod()">
+<div id="base">
+    <nav class="navbar navbar-expand-md navbar-default" v-if="!mobile_mod">    
+        <ul class="navbar-nav  mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Main page</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/feedback">Feedback</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/metronome">Metronome</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav navbar-right ">
+            {% if not user %}
+            <ul class="navbar-nav  mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Sign in</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registration">Sign up</a>
+                </li>
+            </ul>
+            {% endif %}
+
+            {% if user %}
+                <form class="form-inline">
+                    <li class="nav-item">User: {{ user }}</li>&nbsp;
+                    <li class="nav-item">
+                        <a href="/logout" class=>Sign out</a>
+                    </li>
+                </form>
+            {% endif %}
+        </ul>     
+    </nav>
+
+    <nav class="navbar navbar-expand-md navbar-default" v-if="mobile_mod">
+        <button class="menu" @click="show_aside = !show_aside">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <transition name="slide">
+                <aside v-show="show_aside"></aside>
+        </transition>
+    </nav>
+
+
+
+
+</div>
+    
+    
+    {% block head %}
+    {% endblock %}
+
+    {% block content%}
+    {% endblock %}  
+        
+<script src="{{ static('js/base.js') }}"></script>
+<script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+</body>
+</html>

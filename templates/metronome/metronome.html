@@ -8,8 +8,8 @@
 
 {% block content %}
 <div class="container" id="metronome">
-    <div class="row pt-5">
-        <div class="col-6 alert alert-primary">
+    <div class="row pt-5 justify-content-around">
+        <div class="col-5" style="box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.095); background-color: #fff;">
             <h1>Метроном</h1>
             <div class="w-100"></div>
             <h2>[[ beats_per_minute ]] уд/мин</h2>
@@ -19,7 +19,9 @@
             <button v-on:click="start = false">Stop</button>
             [[ start ]]
         </div>
-        <div class="col-6 alert alert-primary">
+
+
+        <div class="col-5" style="box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.095); background-color: #fff;">
             <h1>Таймер</h1>
             <h6>минуты:секунды</h6>
             <div class="w-100"></div>
