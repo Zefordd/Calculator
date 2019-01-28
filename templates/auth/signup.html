@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    login
+{% endblock %}
+
+
+{% block content %}
+<div class="container" id="signup" style="font-size: 25px">
+    <div class="row pt-5 d-flex justify-content-center">       
+        <form action="/signup" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+            <div class="row pt-5 justify-content-center">
+                    <h5 style="font-size: 40px">Sign up</h5>
+            </div>
+
+            
+            <div class="row pt-3 justify-content-center">
+                <input class="form-control-lg" id="login" name="login" type="text" value="" placeholder="login" autofocus>
+            </div>
+
+            <div class="row pt-2 justify-content-center">
+                <input class="form-control-lg" id="password" name="password" type="password" value="" placeholder="password">
+            </div>
+
+            <div class="row pt-2 justify-content-center">
+                <input class="form-control-lg" id="password_2" name="password_2" type="password" value="" placeholder="password">
+            </div>
+
+            <div class="row pt-4 d-flex justify-content-center">
+                <input type="submit" value="Sign up" class="btn btn-success btn-sm btn-block" style="font-size: 20px">
+            </div>
+        </form>
+    </div>
+
+    
+    <!-- <br><br><br><br><br>
+    <div class="row pt-5 justify-content-center">
+        <h1>{{ exception }}</h1>    
+        <h4>{{ last_visit }}</h4>
+    </div> -->
+
+
+</div>
+
+
+{% endblock %}
