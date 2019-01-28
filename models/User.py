@@ -1,10 +1,13 @@
+import hashlib
+
 from sqlalchemy import create_engine
-engine = create_engine('sqlite:///my_db.db', echo=False)
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+
+engine = create_engine('sqlite:///my_db.db', echo=False)
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -32,7 +35,7 @@ class User(Base):
             return dict(error='login is alreay in use')
 
         if data['login'] and data['password'] and data['password_2'] and data['password'] == data['password_2']:
-            password = data['password']
+            password = hashlib.sha256(data['password'].encode('utf8')).hexdigest()
             new_user = User(login, password)
             session.add(new_user)
             session.commit()
@@ -48,3 +51,4 @@ class User(Base):
             return dict(login=login, password=password)
 
         return None
+

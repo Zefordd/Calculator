@@ -1,5 +1,6 @@
-from datetime import datetime
+import hashlib
 import aiohttp_jinja2
+from datetime import datetime
 
 from aiohttp import web
 from aiohttp_session import get_session
@@ -24,7 +25,7 @@ class Login(web.View):
         password = data['password']
 
         user = await User.get_user(login)
-        if user and login == user['login'] and password == user['password']:
+        if user and user['login'] == login and user['password'] == hashlib.sha256(password.encode('utf8')).hexdigest():
             session = await get_session(self)
             session['user'] = user
             location = self.app.router['index'].url_for()
