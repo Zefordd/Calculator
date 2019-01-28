@@ -32,12 +32,17 @@
     
                 <ul class="navbar-nav navbar-right ">
                     {% if not user %}
-                        <li><a href="/login">Login</a></li>
+                        <li class="nav-item">
+                                <a href="/signup" class=>Signup</a>
+                        </li>&nbsp;&nbsp;
+                        <li class="nav-item">
+                                <a href="/login" class=>Login</a>
+                        </li>
                     {% endif %}
     
                     {% if user %}
                         <form class="form-inline">
-                            <li class="nav-item">User: {{ user }}</li>&nbsp;
+                            <li class="nav-item">User: {{ user['login'] }}</li>&nbsp;&nbsp;
                             <li class="nav-item">
                                 <a href="/logout" class=>Logout</a>
                             </li>
