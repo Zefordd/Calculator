@@ -2,7 +2,8 @@ import hashlib
 
 from sqlalchemy import create_engine
 
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, update
+
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -19,10 +20,12 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     login = Column(String)
     password = Column(String)
+    file_url = Column(String)
     
     def __init__(self, login, password):
         self.login = login
         self.password = password
+        self.file_url = file_url
 
     def __repr__(self):
         return "(login='%s', password='%s')" % (self.login, self.password)
@@ -52,12 +55,22 @@ class User(Base):
 
         return None
 
+    @staticmethod
+    async def save_user_file_url(login, file_url):
+        session.query(User).filter(User.login == login).\
+              update({"file_url": (file_url)})
+        session.commit()
+
+
 
 def add_column(engine, table_name, column):
     column_name = column.compile(dialect=engine.dialect)
     column_type = column.type.compile(engine.dialect)
     engine.execute('ALTER TABLE %s ADD COLUMN %s %s' % (table_name, column_name, column_type))
 
+
+
+session.close()
 """
 
 Base.metadata.create_all(engine)  # создание таблицы
