@@ -13,10 +13,20 @@
 
     <div class="container pt-5">    
         <form action="/save_file" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-            <label for="file">File</label>
-            <input id="file" name="file" type="file" value=""/>
+            <label for="user_file">File</label>
+            <input id="user_file" name="user_file" type="file" value=""/>
             <input type="submit" value="submit"/>
+            {% if not user %}
+                <strong>{{ user_file_error }}</strong>
+            {% endif %}
         </form>
+
+        {% if user %}
+        <img src="{{ url('static', filename=user.file_url) }}" width="255" height="255">
+        {{user.file_url}}
+        {% endif %}
+
+
 
     </div>
 

@@ -1,5 +1,6 @@
 from auth.views import Login, Logout, Signup
 from main_page.views import Index, Feedback, Spiral, Metronome
+from main_page.user_file import User_file
 
 from settings import BaseConfig
 
@@ -14,6 +15,8 @@ def setup_routes(app):
 
     app.router.add_get('/feedback', Feedback.get, name='feedback')
     app.router.add_get('/metronome', Metronome.get, name='metronome')
+
+    app.router.add_post('/save_file', User_file.post, name='save_file')
     app.router.add_post('/spiral', Spiral.post, name='spiral')
 
 
