@@ -14,7 +14,6 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
@@ -25,7 +24,6 @@ class User(Base):
     def __init__(self, login, password):
         self.login = login
         self.password = password
-        self.file_url = file_url
 
     def __repr__(self):
         return "(login='%s', password='%s')" % (self.login, self.password)

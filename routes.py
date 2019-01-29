@@ -1,5 +1,5 @@
 from auth.views import Login, Logout, Signup
-from calculator.views import Index, Feedback, Spiral, Metronome
+from main_page.views import Index, Feedback, Spiral, Metronome
 
 from settings import BaseConfig
 

@@ -7,7 +7,7 @@ from aiohttp_session import get_session
 
 class Index(web.View):
 
-    @aiohttp_jinja2.template('calculator/index.html')
+    @aiohttp_jinja2.template('main_page/index.html')
     async def get(self):
         spiral = Spiral.spiral
         return dict(spiral=spiral)
