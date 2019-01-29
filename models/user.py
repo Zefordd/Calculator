@@ -12,7 +12,7 @@ Base = declarative_base()
 Session = sessionmaker(bind=engine)
 session = Session()
 
-#Base.metadata.create_all(engine)
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -52,3 +52,17 @@ class User(Base):
 
         return None
 
+
+def add_column(engine, table_name, column):
+    column_name = column.compile(dialect=engine.dialect)
+    column_type = column.type.compile(engine.dialect)
+    engine.execute('ALTER TABLE %s ADD COLUMN %s %s' % (table_name, column_name, column_type))
+
+"""
+
+Base.metadata.create_all(engine)  # создание таблицы
+
+column = Column('file_url', String, primary_key=False)  # добавить новый столбец
+add_column(engine, 'users', column)
+
+"""
