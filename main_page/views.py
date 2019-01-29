@@ -4,13 +4,16 @@ import aiohttp_jinja2
 from aiohttp import web
 from aiohttp_session import get_session
 
+from .user_file import User_file
+
 
 class Index(web.View):
 
     @aiohttp_jinja2.template('main_page/index.html')
     async def get(self):
         spiral = Spiral.spiral
-        return dict(spiral=spiral)
+        user_file_error = User_file.error
+        return dict(spiral=spiral, user_file_error=user_file_error)
 
 
 class Feedback(web.View):
@@ -63,6 +66,4 @@ class Spiral(web.View):
             n -= 1
             i,j = 0,0
         return A
-
-
 

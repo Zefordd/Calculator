@@ -19,11 +19,12 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     login = Column(String)
     password = Column(String)
-    file_url = Column(String)
+    file_url = Column(String, nullable=True)
     
-    def __init__(self, login, password):
+    def __init__(self, login, password, file_url):
         self.login = login
         self.password = password
+        self.file_url = file_url
 
     def __repr__(self):
         return "(login='%s', password='%s')" % (self.login, self.password)
@@ -37,7 +38,7 @@ class User(Base):
 
         if data['login'] and data['password'] and data['password_2'] and data['password'] == data['password_2']:
             password = hashlib.sha256(data['password'].encode('utf8')).hexdigest()
-            new_user = User(login, password)
+            new_user = User(login, password, None)
             session.add(new_user)
             session.commit()
         else:
@@ -49,7 +50,8 @@ class User(Base):
         if session.query(User).filter(User.login == login).first():
             login = session.query(User).filter(User.login == login).first().login
             password = session.query(User).filter(User.login == login).first().password
-            return dict(login=login, password=password)
+            file_url = session.query(User).filter(User.login == login).first().file_url
+            return dict(login=login, password=password, file_url=file_url)
 
         return None
 
