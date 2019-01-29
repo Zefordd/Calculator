@@ -1,42 +1,62 @@
 {% extends 'base.html' %}
 
-
 {% block title %}
     metronome
 {% endblock %}
 
-
 {% block content %}
-<div class="container" id="metronome">
-    <div class="row pt-5 justify-content-around">
-        <div class="col-5" style="box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.095); background-color: #fff;">
-            <h1>Метроном</h1>
-            <div class="w-100"></div>
-            <h2>[[ beats_per_minute ]] уд/мин</h2>
-            <input type="range" min="20" max="218" step="1" class="form-control-range" v-model="beats_per_minute">
-            <div class="w-100"></div>
-            <button v-on:click="start_metronome">Start</button>
-            <button v-on:click="start = false">Stop</button>
-            [[ start ]]
+
+<head>
+    <link href="{{ static('css/metronome.css') }}" rel="stylesheet">
+</head>
+    
+<div class="container-fluid" id="metronome">
+    <div class="row justify-content-center">
+        <div class="col-5 m-4">
+            <div class="row">
+                <div class="col"><h3>Metronome</h3></div>
+            </div>
+
+            <metronome :metronome-work="metronome_work"></metronome>
         </div>
 
 
-        <div class="col-5" style="box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.095); background-color: #fff;">
-            <h1>Таймер</h1>
-            <h6>минуты:секунды</h6>
-            <div class="w-100"></div>
-
-            <input type="number" min="0" max="59" v-model="minutes">
-            :
-            <input type="number" min="0" max="59" v-model="seconds">
-            <div class="w-100"></div>
-
-            <button v-on:click="start_timer">Start</button>
-            <button>Stop</button>
+        <div class="col-5 m-4">
+            <div class="row">
+                <div class="col"><h3>Timer</h3></div>
+            </div>
+            
+            <metronome :metronome-work="metronome_work"></metronome>
         </div>
-
+    </div>
+    <div class="row pt-3 justify-content-center">
+        <div class="col-5 m-4">super content</div>
+        <div class="col-5 m-4">super content</div>
     </div>
 </div>
 
+
+<template id="metronome_template">
+    <div style="box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.095); background-color: #fff;">
+        <div class="row pt-4 m-4 align-items-center">
+            <div class="col-6">
+                <h1>[[  beats_per_minute ]]<small style="font-size: 14px; color: rgb(151, 144, 144)">BPM</small></h1>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-primary float-right" v-if="!metronomeWork" @click="start_metronome">Play</button>
+                <button class="btn btn-danger float-right" v-if="metronomeWork" @click="metronomeWork = false">Stop</button>                         
+            </div>
+        </div>
+        <div class="row pt-3 m-4 py-4">
+            <div class="col">
+                <input class="form-control" type="range" max="218" min="20" v-model="beats_per_minute">
+            </div>                    
+        </div>
+    </div>
+</template>
+
+
 <script src="{{ static('js/metronome.js') }}"></script>
+
+
 {% endblock %}
