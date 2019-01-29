@@ -11,6 +11,15 @@
         <link href="{{ static('css/calculator.css') }}" rel="stylesheet">
     </head>
 
+    <div class="container pt-5">    
+        <form action="/save_file" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+            <label for="file">File</label>
+            <input id="file" name="file" type="file" value=""/>
+            <input type="submit" value="submit"/>
+        </form>
+
+    </div>
+
     <div class="container pt-5">
         <div id="calculator">
             <div class="row">
