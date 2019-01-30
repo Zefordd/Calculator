@@ -7,11 +7,11 @@
 
 
 {% block content %}
-    <head>
-        <link href="{{ static('css/calculator.css') }}" rel="stylesheet">
-    </head>
+<head>
+    <link href="{{ static('css/calculator.css') }}" rel="stylesheet">
+</head>
 
-    <div class="container pt-5">    
+    <div class="container">    
         <form action="/save_file" method="post" accept-charset="utf-8" enctype="multipart/form-data">
             <label for="user_file">File</label>
             <input id="user_file" name="user_file" type="file" value=""/>
