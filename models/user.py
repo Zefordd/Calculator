@@ -38,7 +38,7 @@ class User(Base):
 
         if data['login'] and data['password'] and data['password_2'] and data['password'] == data['password_2']:
             password = hashlib.sha256(data['password'].encode('utf8')).hexdigest()
-            new_user = User(login, password, None)
+            new_user = User(login, password, '')
             session.add(new_user)
             session.commit()
         else:

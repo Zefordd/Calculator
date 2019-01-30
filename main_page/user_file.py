@@ -17,14 +17,25 @@ class User_file(web.View):
         else:
             data = await self.post()
             user = session['user']
+            if user['file_url'] and data['user_file']:
+                try:
+                    await User.save_user_file_url(user['login'], '')
+                    os.remove(BaseConfig.STATIC_DIR + user['file_url'])
+                except: pass
+
             user_file = data['user_file']
+            try:
+                with open(os.path.join(BaseConfig.STATIC_DIR + '/user_files/',
+                    user['login'] + '_' + user_file.filename), 'wb') as f:
+                    content = user_file.file.read()
+                    f.write(content)
+                    f.close()
+            except AttributeError:
+                User_file.error = "Choose your file"
 
-            with open(os.path.join(BaseConfig.STATIC_DIR + '/user_files/', user_file.filename), 'wb') as f:
-                content = user_file.file.read()
-                f.write(content)
-                f.close()
-
-            await User.save_user_file_url(user['login'], '/user_files/{}'.format(user_file.filename))
+            if data['user_file']:
+                await User.save_user_file_url(user['login'],
+                    '/user_files/{}_{}'.format(user['login'], user_file.filename))
 
             location = self.app.router['index'].url_for()
             return web.HTTPFound(location=location)
