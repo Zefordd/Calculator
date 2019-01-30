@@ -23,7 +23,7 @@ class User_file(web.View):
                     os.remove(BaseConfig.STATIC_DIR + user['file_url'])
                 except: pass
 
-            user_file = data['user_file']
+            user_file = data['user_file']            
             try:
                 with open(os.path.join(BaseConfig.STATIC_DIR + '/user_files/',
                     user['login'] + '_' + user_file.filename), 'wb') as f:
@@ -34,8 +34,11 @@ class User_file(web.View):
                 User_file.error = "Choose your file"
 
             if data['user_file']:
-                await User.save_user_file_url(user['login'],
-                    '/user_files/{}_{}'.format(user['login'], user_file.filename))
+                user_file_name = '/user_files/{}_{}'.format(user['login'], user_file.filename)
+                await User.save_user_file_url(user['login'], user_file_name)
+                user = {'login': user['login'], 'password': user['password'], 'file_url': user_file_name}
+                session['user'] = user
+
 
             location = self.app.router['index'].url_for()
             return web.HTTPFound(location=location)
