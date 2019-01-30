@@ -28,17 +28,3 @@ class User_file(web.View):
 
             location = self.app.router['index'].url_for()
             return web.HTTPFound(location=location)
-
-
-
-            # data = await self.post()
-            # login = session['user']['login']
-            # user_file = data['user_file']
-            # file_url = os.path.join('static\\user_files\\', user_file.filename)
-
-            # with open(file_url, 'wb') as f:
-            #     f.close()
-
-            # await User.save_user_file_url(login, file_url)
-            # location = self.app.router['index'].url_for()
-            # return web.HTTPFound(location=location)
