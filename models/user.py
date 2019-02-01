@@ -44,7 +44,6 @@ class User(Base):
         else:
             return dict(error='wrong password or empty slot')
 
-
     @staticmethod
     async def get_user(login):
         if session.query(User).filter(User.login == login).first():
@@ -62,16 +61,32 @@ class User(Base):
         session.commit()
 
 
+    @staticmethod
+    async def save_user_file(file_path, user_file):
+        with open(file_path, 'wb') as f:
+            content = user_file.file.read()
+            f.write(content)
+            f.close()
 
-def add_column(engine, table_name, column):
-    column_name = column.compile(dialect=engine.dialect)
-    column_type = column.type.compile(engine.dialect)
-    engine.execute('ALTER TABLE %s ADD COLUMN %s %s' % (table_name, column_name, column_type))
+    @staticmethod
+    async def save_user_zip_file(file_path, zip_file_name):
+        import zipfile
+        with zipfile.ZipFile(file_path + '.zip', 'w') as zf:
+            zf.write(zip_file_name, compress_type=zipfile.ZIP_DEFLATED)
+            zf.close()
 
+    @staticmethod
+    async def get_delta_size(file_1,file_2):
+        import os
+        return(os.path.getsize(file_1) - os.path.getsize(file_2))
 
 
 session.close()
 """
+def add_column(engine, table_name, column):
+    column_name = column.compile(dialect=engine.dialect)
+    column_type = column.type.compile(engine.dialect)
+    engine.execute('ALTER TABLE %s ADD COLUMN %s %s' % (table_name, column_name, column_type))
 
 Base.metadata.create_all(engine)  # создание таблицы
 

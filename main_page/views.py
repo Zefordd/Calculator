@@ -13,7 +13,8 @@ class Index(web.View):
     async def get(self):
         spiral = Spiral.spiral
         user_file_error = User_file.error
-        return dict(spiral=spiral, user_file_error=user_file_error)
+        delta_size = User_file.delta_size
+        return dict(spiral=spiral, user_file_error=user_file_error, delta_size=delta_size)
 
 
 class Feedback(web.View):
