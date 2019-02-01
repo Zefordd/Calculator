@@ -21,31 +21,33 @@
             </div>        
     </div>
 
-
+<form action="/send_feedback" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
     <div class="row pt-3">
         <div class="col-md-8" v-show="!show_Jesus">
             <div class="form-group">
-                <textarea rows="5" cols="60" placeholder="Введите отзыв" class="form-control" v-model="feedback" v-on:keyup="unlock_button" required></textarea>
-
+                <textarea rows="5" cols="60" placeholder="Введите отзыв" class="form-control" v-model="feedback" v-on:keyup="unlock_button" required id="feedback_text" name="feedback_text"></textarea>
                 <hr>
-
                 <div class="row pt-3">
                     <div class="col">
-                        <input type="text" maxlength="30" placeholder="Введите ваше имя*" class="form-control" v-model="name" v-on:keyup="unlock_button">
+                        <input type="text" maxlength="30" placeholder="Введите ваше имя*" class="form-control" v-model="name" v-on:keyup="unlock_button" id="name" name="name">
                     </div>
                     <div class="col">
-                        <input type="text" maxlength="30" placeholder="Введите вашу фамилию*" class="form-control" v-model="surname" v-on:keyup="unlock_button">
+                        <input type="text" maxlength="30" placeholder="Введите вашу фамилию*" class="form-control" v-model="surname" v-on:keyup="unlock_button" id="surname" name="surname">
                     </div>
                 </div>
                 <div class="row pt-3">
                     <div class="col">
-                        <input type="text" maxlength="30" placeholder="Введите вашу почту*" class="form-control" v-model="email" v-on:keyup="unlock_button">
+                        <input type="text" maxlength="30" placeholder="Введите вашу почту*" class="form-control" v-model="email" v-on:keyup="unlock_button" id="email" name="email">
                     </div>
                     <div class="col">
-                        <input type="text" maxlength="11" placeholder="Введите ваш телефон*" class="form-control" v-model="phone" v-on:keyup="unlock_button" :disabled="phone_blocker">
+                        <input type="text" maxlength="11" placeholder="Введите ваш телефон*" class="form-control" v-model="phone" v-on:keyup="unlock_button" :disabled="phone_blocker" id="phone" name="phone">
                     </div>
-                </div>             
-
+                </div>        
+                <hr>                
+                <div class="row pt-3">
+                    <button type="submit" class="btn btn-danger btn-lg btn-block" v-on:click="send_feedback_button" :disabled="feedback_button_blocker">Отправить отзыв</button>
+                </div>
+</form>
 
                 <div class="row justify-content-center">
 
@@ -100,11 +102,6 @@
                         </div>           
                     </div>                    
 
-                </div>
-                <hr>                
-
-                <div class="row pt-3">
-                    <button class="btn btn-danger btn-lg btn-block" v-on:click="send_feedback_button" :disabled="feedback_button_blocker">Отправить отзыв</button>
                 </div>
             </div>   
         </div>

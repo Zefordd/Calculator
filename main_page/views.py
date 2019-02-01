@@ -17,12 +17,6 @@ class Index(web.View):
         return dict(spiral=spiral, user_file_error=user_file_error, delta_size=delta_size)
 
 
-class Feedback(web.View):
-
-    @aiohttp_jinja2.template('feedback/feedback.html')
-    async def get(self):
-        pass
-
 class Metronome(web.View):
 
     @aiohttp_jinja2.template('metronome/metronome.html')
