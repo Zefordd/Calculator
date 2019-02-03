@@ -3,6 +3,8 @@ aiohttp-jinja2==1.0.0
 aiohttp-session==2.5.1
 asn1crypto==0.24.0
 async-timeout==3.0.0
+asyncpg==0.18.2
+asyncpgsa==0.25.2
 attrs==18.2.0
 cffi==1.11.5
 chardet==3.0.4
@@ -15,4 +17,6 @@ motor==2.0.0
 multidict==4.4.0
 pycparser==2.18
 six==1.11.0
+SQLAlchemy==1.2.14
+SQLAlchemy-Utils==0.33.9
 yarl==1.2.6
