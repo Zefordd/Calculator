@@ -1,6 +1,7 @@
 import base64
 import logging
 
+import asyncio
 import aiohttp_jinja2
 import jinja2
 from aiohttp import web
@@ -44,4 +45,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    exec(open("feedback/bot.py").read())
+    #main()
+    
+    

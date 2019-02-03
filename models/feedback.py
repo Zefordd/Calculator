@@ -35,10 +35,24 @@ class Feedback_model(Base):
         surname = data['surname']
         email = data['email']
         phone = data['phone']
-        if feedback_text and name and surname and email and phone:
+        if feedback_text and name and surname and email:
             new_feedback = Feedback_model(feedback_text, name, surname, email, phone)
             session.add(new_feedback)
             session.commit()
+
+    @staticmethod
+    async def get_feedback(id):
+        name = session.query(Feedback_model).filter(Feedback_model.id == id).first().name
+        surname = session.query(Feedback_model).filter(Feedback_model.id == id).first().surname
+        feedback_text = session.query(Feedback_model).filter(Feedback_model.id == id).first().feedback_text
+        return dict(name=name, surname=surname, feedback_text=feedback_text, _id=id)
+    
+    @staticmethod
+    def get_feedback_for_bot(id):
+        name = session.query(Feedback_model).filter(Feedback_model.id == id).first().name
+        surname = session.query(Feedback_model).filter(Feedback_model.id == id).first().surname
+        feedback_text = session.query(Feedback_model).filter(Feedback_model.id == id).first().feedback_text
+        return dict(name=name, surname=surname, feedback_text=feedback_text, _id=id)
 
 
 session.close()
