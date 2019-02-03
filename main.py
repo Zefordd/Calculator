@@ -45,7 +45,6 @@ def main():
 
 
 if __name__ == '__main__':
-    exec(open("feedback/bot.py").read())
-    #main()
+    main()
     
     
