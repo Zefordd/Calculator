@@ -16,6 +16,7 @@ MarkupSafe==1.0
 motor==2.0.0
 multidict==4.4.0
 pycparser==2.18
+pyTelegramBotAPI==3.6.6
 six==1.11.0
 SQLAlchemy==1.2.14
 SQLAlchemy-Utils==0.33.9

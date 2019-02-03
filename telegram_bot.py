@@ -9,9 +9,7 @@ from models.feedback import Feedback_model
 
 TOKEN = '541643448:AAHPmSYB_kn5zEz0cRtq76BiA6QCD8byfPY'
 CHAT_ID = "386109719"
-
 bot = telebot.TeleBot(TOKEN)
-
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):

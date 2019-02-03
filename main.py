@@ -34,7 +34,6 @@ def main():
         loader=jinja2.PackageLoader(package_name='main', package_path='templates'),
         context_processors=[current_user])
     
-
     setup_routes(app)
     setup_static_routes(app)
     app['static_root_url'] = '/static'
@@ -46,5 +45,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
     
