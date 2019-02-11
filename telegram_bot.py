@@ -13,13 +13,13 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-	bot.reply_to(message, "Howdy partner!!")
+	bot.reply_to(message, "Howdy Pardner!!")
 
 
 def get_message():
     i = 0
     post_msg = ''
-    while True:
+    while i <= 4:
         i += 1
         try: 
             Feedback_model.get_feedback_for_bot(i)

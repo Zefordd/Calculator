@@ -2,6 +2,7 @@ from auth.views import Login, Logout, Signup
 from main_page.views import Index, Spiral, Metronome
 from main_page.user_file import User_file
 from feedback.views import Feedback
+from shop.view import Shop
 from settings import BaseConfig
 
 def setup_routes(app):
@@ -16,6 +17,9 @@ def setup_routes(app):
     app.router.add_get('/feedback', Feedback.get, name='feedback')
     app.router.add_post('/send_feedback', Feedback.post)
     app.router.add_get('/metronome', Metronome.get, name='metronome')
+    app.router.add_get('/shop', Shop.get, name='shop')
+    app.router.add_post('/shop', Shop.post)
+
 
     app.router.add_post('/save_file', User_file.post, name='save_file')
     app.router.add_post('/spiral', Spiral.post, name='spiral')

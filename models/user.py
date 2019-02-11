@@ -1,11 +1,12 @@
 import hashlib
+from aiohttp_session import get_session
 
 from sqlalchemy import create_engine
 
-from sqlalchemy import Column, Integer, String, update
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, update
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship, backref
 
 
 engine = create_engine('sqlite:///my_db.db', echo=False)
@@ -20,6 +21,7 @@ class User(Base):
     login = Column(String)
     password = Column(String)
     file_url = Column(String, nullable=True)
+
     
     def __init__(self, login, password, file_url):
         self.login = login
@@ -47,9 +49,9 @@ class User(Base):
     @staticmethod
     async def get_user(login):
         if session.query(User).filter(User.login == login).first():
-            login = session.query(User).filter(User.login == login).first().login
             password = session.query(User).filter(User.login == login).first().password
             file_url = session.query(User).filter(User.login == login).first().file_url
+            login = session.query(User).filter(User.login == login).first().login
             return dict(login=login, password=password, file_url=file_url)
 
         return None
@@ -81,7 +83,36 @@ class User(Base):
         return(os.path.getsize(file_1) - os.path.getsize(file_2))
 
 
+
+class Customer(User):
+    balance = Column(Float)
+    spent_money = Column(Float)
+    items = Column(String)
+    items_img = Column(String)
+
+    def __init__(self, *args, **kwargs):
+        super(Customer, self).__init__(*args, **kwargs)
+
+    @staticmethod
+    async def increase_balance(login, data):
+        amount = float(data['amount'])
+        current_balance = session.query(Customer).filter(Customer.login == login).first().balance
+        total = amount + current_balance
+        session.query(Customer.login == login).update({"balance": total})
+        session.commit()
+
+    @staticmethod
+    async def get_customer_data(login):
+        if session.query(Customer).filter(Customer.login == login).first():
+            balance = session.query(Customer).filter(Customer.login == login).first().balance
+            spent_money = session.query(Customer).filter(Customer.login == login).first().spent_money
+            items = session.query(Customer).filter(Customer.login == login).first().items
+            items_img = session.query(Customer).filter(Customer.login == login).first().items_img
+            return dict(balance=balance, spent_money=spent_money, items=items, items_img=items_img)  
+
+
 session.close()
+
 """
 def add_column(engine, table_name, column):
     column_name = column.compile(dialect=engine.dialect)
