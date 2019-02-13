@@ -22,7 +22,6 @@ class User(Base):
     password = Column(String)
     file_url = Column(String, nullable=True)
 
-    
     def __init__(self, login, password, file_url):
         self.login = login
         self.password = password
@@ -30,7 +29,6 @@ class User(Base):
 
     def __repr__(self):
         return "(login='%s', password='%s')" % (self.login, self.password)
-
 
     @staticmethod
     async def create_new_user(data):
@@ -62,7 +60,6 @@ class User(Base):
               update({"file_url": (file_url)})
         session.commit()
 
-
     @staticmethod
     async def save_user_file(file_path, user_file):
         with open(file_path, 'wb') as f:
@@ -87,8 +84,6 @@ class User(Base):
 class Customer(User):
     balance = Column(Float)
     spent_money = Column(Float)
-    items = Column(String)
-    items_img = Column(String)
 
     def __init__(self, *args, **kwargs):
         super(Customer, self).__init__(*args, **kwargs)
@@ -106,12 +101,64 @@ class Customer(User):
         if session.query(Customer).filter(Customer.login == login).first():
             balance = session.query(Customer).filter(Customer.login == login).first().balance
             spent_money = session.query(Customer).filter(Customer.login == login).first().spent_money
-            items = session.query(Customer).filter(Customer.login == login).first().items
-            items_img = session.query(Customer).filter(Customer.login == login).first().items_img
-            return dict(balance=balance, spent_money=spent_money, items=items, items_img=items_img)  
+            return dict(balance=balance, spent_money=spent_money)  
+
+    @staticmethod
+    def make_order(customer, item):
+        """
+            Записывает в БД 'orders' заказ пользователя
+            Принимает на вход имя пользователя(логин) и имя заказа(название предмета)
+        """
+        try:
+            customer = session.query(Customer).filter(Customer.login == customer).first()
+            item = session.query(Item).filter(Item.name == item).first()
+            order = Orders(customer_login=customer.login, item_name=item.name)
+            session.add(order)
+            session.commit()
+        except AttributeError:
+            #print('Item or customer does not exist')
+            pass
+
+    @staticmethod
+    def get_all_customer_orders(customer):
+        """
+            Возвращает словарь со всеми заказами пользователя.
+            {'Предмет': количество}
+        """
+        if session.query(Customer).filter(Customer.login == customer).first():
+            customer = session.query(Customer).filter(Customer.login == customer).first()
+            items = session.query(Orders).filter(Orders.customer_login == customer.login).all()
+            item_names = []
+            orders = {}
+            for item in items:
+                item_names.append(item.item_name)
+                if item.item_name in orders:
+                    orders[item.item_name] += 1
+                else:
+                    orders[item.item_name] = 1
+            return orders
+
+class Orders(Base):
+    __tablename__ = 'orders'
+    id = Column(Integer, primary_key=True)
+    customer_login = Column(String)
+    item_name = Column(String)
+
+class Item(Base):
+    __tablename__ = 'item'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, unique=True)
+    cost = Column(Float)
+    item_img = Column(String)
+
+    def __init__(self, name):
+        self.name = name
+
+
 
 
 session.close()
+print(Customer.get_all_customer_orders('admin'))
 
 """
 def add_column(engine, table_name, column):
@@ -123,5 +170,7 @@ Base.metadata.create_all(engine)  # создание таблицы
 
 column = Column('file_url', String, primary_key=False)  # добавить новый столбец
 add_column(engine, 'users', column)
+
+session.query(Item).filter(Item.name == 'cup').update({"cost": 10}) # обновить значение 
 
 """
