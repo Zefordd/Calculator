@@ -5,9 +5,6 @@ import aiohttp_jinja2
 from models.user import User, Customer
 
 
-
-
-
 class Shop(web.View):
 
     @aiohttp_jinja2.template('shop/shop.html')
@@ -16,7 +13,9 @@ class Shop(web.View):
         if 'user' in session:
             login = session['user']['login']
             customer_data = await Customer.get_customer_data(login)
-            return dict(current_balance=customer_data['balance'])
+            customer_orders = await Customer.get_all_customer_orders(login)
+            return dict(current_balance=customer_data['balance'],
+                        customer_orders=customer_orders)
         else:
             return dict(current_balance='Please login to use the shop')
 

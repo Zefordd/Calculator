@@ -91,9 +91,9 @@ class Customer(User):
     @staticmethod
     async def increase_balance(login, data):
         amount = float(data['amount'])
-        current_balance = session.query(Customer).filter(Customer.login == login).first().balance
+        current_balance = session.query(Customer).filter(Customer.login == login).first().balance or 0
         total = amount + current_balance
-        session.query(Customer.login == login).update({"balance": total})
+        session.query(Customer).filter(Customer.login == login).update({"balance": total})
         session.commit()
 
     @staticmethod
@@ -104,23 +104,7 @@ class Customer(User):
             return dict(balance=balance, spent_money=spent_money)  
 
     @staticmethod
-    def make_order(customer, item):
-        """
-            Записывает в БД 'orders' заказ пользователя
-            Принимает на вход имя пользователя(логин) и имя заказа(название предмета)
-        """
-        try:
-            customer = session.query(Customer).filter(Customer.login == customer).first()
-            item = session.query(Item).filter(Item.name == item).first()
-            order = Orders(customer_login=customer.login, item_name=item.name)
-            session.add(order)
-            session.commit()
-        except AttributeError:
-            #print('Item or customer does not exist')
-            pass
-
-    @staticmethod
-    def get_all_customer_orders(customer):
+    async def get_all_customer_orders(customer):
         """
             Возвращает словарь со всеми заказами пользователя.
             {'Предмет': количество}
@@ -144,6 +128,28 @@ class Orders(Base):
     customer_login = Column(String)
     item_name = Column(String)
 
+    @staticmethod
+    async def make_order(customer, item):
+        """
+            Записывает в БД 'orders' заказ пользователя
+            Принимает на вход имя пользователя(логин) и имя заказа(название предмета)
+        """
+        try:
+            customer = session.query(Customer).filter(Customer.login == customer).first()
+            item = session.query(Item).filter(Item.name == item).first()
+            order = Orders(customer_login=customer.login, item_name=item.name)
+            session.add(order)
+            session.commit()
+        except AttributeError:
+            #print('Item or customer does not exist')
+            pass
+
+    @staticmethod
+    async def delete_customer_orders(login):
+        session.query(Orders).filter(Orders.customer_login == login).delete()
+        session.commit()
+
+
 class Item(Base):
     __tablename__ = 'item'
     id = Column(Integer, primary_key=True)
@@ -151,16 +157,19 @@ class Item(Base):
     cost = Column(Float)
     item_img = Column(String)
 
-    def __init__(self, name):
-        self.name = name
-
 
 
 
 session.close()
-print(Customer.get_all_customer_orders('admin'))
+
+
 
 """
+DELETE ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+import asyncio
+asyncio.get_event_loop().run_until_complete(Orders.make_order('test', 'siga'))
+
 def add_column(engine, table_name, column):
     column_name = column.compile(dialect=engine.dialect)
     column_type = column.type.compile(engine.dialect)
@@ -173,4 +182,5 @@ add_column(engine, 'users', column)
 
 session.query(Item).filter(Item.name == 'cup').update({"cost": 10}) # обновить значение 
 
+DELETE ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 """

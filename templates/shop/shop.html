@@ -65,6 +65,14 @@
             {% if current_balance %}
                 <p>Balance: <strong>{{current_balance}}</strong></p>
             {% endif %}
+            {% if customer_orders %}
+                <strong>My orders: </strong>
+                {% for order in customer_orders.items() %}
+                    <li>{{order[0]}} {{"x"}}{{order[1]}}</li>
+                {% endfor %}
+            {% endif %}
+
+            
         </form>
     </div>
 </div>
