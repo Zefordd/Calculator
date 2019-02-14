@@ -93,7 +93,7 @@ class Customer(User):
         amount = float(data['amount'])
         current_balance = session.query(Customer).filter(Customer.login == login).first().balance or 0
         total = amount + current_balance
-        session.query(Customer).filter(Customer.login == login).update({"balance": total})
+        session.query(Customer).filter(Customer.login == login).update({"balance": round(total, 2)})
         session.commit()
 
     @staticmethod
