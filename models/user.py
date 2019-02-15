@@ -9,6 +9,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship, backref
 
 
+
 engine = create_engine('sqlite:///my_db.db', echo=False)
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
@@ -156,7 +157,18 @@ class Item(Base):
     name = Column(String, unique=True)
     cost = Column(Float)
     item_img = Column(String)
+    description = Column(String)
 
+    @staticmethod
+    async def add_item(item_name, cost, item_img, description):
+        name = item_name
+        if session.query(Item).filter(Item.name==name).first():
+            return dict(error='item name must be unique')
+        else:
+            new_item = Item(name=name, cost=cost, item_img=item_img, description=description)
+            session.add(new_item)
+            session.commit()
+            
 
 
 
@@ -176,6 +188,7 @@ def add_column(engine, table_name, column):
     engine.execute('ALTER TABLE %s ADD COLUMN %s %s' % (table_name, column_name, column_type))
 
 Base.metadata.create_all(engine)  # создание таблицы
+Item.__table__.drop(engine)
 
 column = Column('file_url', String, primary_key=False)  # добавить новый столбец
 add_column(engine, 'users', column)

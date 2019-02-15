@@ -1,8 +1,10 @@
 from aiohttp import web
+import asyncio
 from aiohttp_session import get_session
 import aiohttp_jinja2
+from settings import BaseConfig
 
-from models.user import User, Customer
+from models.user import User, Customer, Item, Orders
 
 
 class Shop(web.View):
@@ -34,3 +36,31 @@ class Shop(web.View):
 
         location = self.app.router['shop'].url_for()
         return web.HTTPFound(location=location)
+
+class New_item(web.View):
+    async def post(self):
+        data = await self.post()
+        item_name = data['item_name']
+        cost = data['item_cost']
+        description = data['item_description']
+        item_img = data['item_img']
+        file_name = '/item_imgs/' + item_name + '.' + item_img.filename.split('.')[-1]
+
+        await Item.add_item(item_name, cost, file_name, description)
+
+        item_img = data['item_img']
+        try:
+            file_path = BaseConfig.STATIC_DIR + file_name
+            await User.save_user_file(file_path, item_img)
+        except: pass
+        print(item_img.filename)
+        location = self.app.router['shop'].url_for()
+        return web.HTTPFound(location=location)
+
+
+
+# out = {
+#     'customer_login': login,
+#     'current_balance': customer_data['balance'],
+#     'customer_orders': customer_orders
+# }

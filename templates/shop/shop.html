@@ -12,8 +12,8 @@
 <div class="container">
     <div class="row">
         <div class="col-7">
-
         </div>
+
         <div class="col-5">
             <form action="/shop" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
                 <label for="amount">Add caps</label>
@@ -31,6 +31,18 @@
             </form>
         </div>
     </div>
+<br><br>
+    <form action="/save_item" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+        <input id="item_name" name="item_name" type="text" value="" placeholder="name">
+        <input id="item_cost" name="item_cost" type="number" value="" placeholder="cost">
+        <input id="item_description" name="item_description" type="text" value="" placeholder="description">
+        <input id="item_img" name="item_img" type="file" value="" >
+        <input type="submit" value="submit"/>
+
+            
+    </form>
+
+
 </div>
 
 {% endblock %}
