@@ -100,9 +100,12 @@ class Customer(User):
     @staticmethod
     async def get_customer_data(login):
         if session.query(Customer).filter(Customer.login == login).first():
+            customer_info = {}
             balance = session.query(Customer).filter(Customer.login == login).first().balance
-            spent_money = session.query(Customer).filter(Customer.login == login).first().spent_money
-            return dict(balance=balance, spent_money=spent_money)  
+            customer_info['login'] = login
+            customer_info['balance'] = balance
+            customer_info['orders'] = await Customer.get_all_customer_orders(login)
+            return customer_info
 
     @staticmethod
     async def get_all_customer_orders(customer):
@@ -168,7 +171,22 @@ class Item(Base):
             new_item = Item(name=name, cost=cost, item_img=item_img, description=description)
             session.add(new_item)
             session.commit()
+
+    @staticmethod
+    async def get_items_info():
+        items_info = []
+        result = session.query(Item.name).all()
+        names = [value for value, in result]
+        for name in names:
+            item = {}
+            item['name'] = session.query(Item).filter(Item.name == name).first().name
+            item['cost'] = session.query(Item).filter(Item.name == name).first().cost
+            item['item_img'] = session.query(Item).filter(Item.name == name).first().item_img
+            item['description'] = session.query(Item).filter(Item.name == name).first().description
+            items_info.append(item)
+        return(items_info)
             
+
 
 
 

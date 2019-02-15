@@ -7,6 +7,8 @@ from settings import BaseConfig
 from models.user import User, Customer, Item, Orders
 
 
+
+
 class Shop(web.View):
 
     @aiohttp_jinja2.template('shop/shop.html')
@@ -20,6 +22,7 @@ class Shop(web.View):
                         customer_orders=customer_orders)
         else:
             return dict(current_balance='Please login to use the shop')
+
 
     async def post(self):
         session = await get_session(self)
@@ -56,6 +59,19 @@ class New_item(web.View):
         print(item_img.filename)
         location = self.app.router['shop'].url_for()
         return web.HTTPFound(location=location)
+
+class Items_info(web.View):
+    async def get(self):
+        items_info = await Item.get_items_info()
+        return web.json_response(items_info)
+
+class Customer_info(web.View):
+    async def get(self):
+        session = await get_session(self)
+        if 'user' in session:
+            login = session['user']['login']
+            customer_info = await Customer.get_customer_data(login)
+            return web.json_response(customer_info)
 
 
 
