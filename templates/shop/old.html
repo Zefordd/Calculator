@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    shop
+{% endblock %}
+
+{% block content %}
+
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-7">
+        </div>
+
+        <div class="col-5">
+            <form action="/shop" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+                <label for="amount">Add caps</label>
+                <input class="form-control-lg" id="amount" name="amount" type="number" value="0" autofocus step="0.01">
+                <input type="submit" value="Submit" class="btn-primary" style="font-size: 20px">
+
+                <p>Balance: <strong>{{current_balance}}</strong></p>
+
+                {% if customer_orders %}
+                    <strong>My orders: </strong>
+                    {% for order in customer_orders.items() %}
+                        <li>{{order[0]}} {{"x"}}{{order[1]}}</li>
+                    {% endfor %}
+                {% endif %} 
+            </form>
+        </div>
+    </div>
+<br><br>
+    <form action="/save_item" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+        <input id="item_name" name="item_name" type="text" value="" placeholder="name">
+        <input id="item_cost" name="item_cost" type="number" value="" placeholder="cost">
+        <input id="item_description" name="item_description" type="text" value="" placeholder="description">
+        <input id="item_img" name="item_img" type="file" value="" >
+        <input type="submit" value="submit"/>
+
+            
+    </form>
+
+
+</div>
+
+{% endblock %}
