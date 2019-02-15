@@ -73,10 +73,3 @@ class Customer_info(web.View):
             customer_info = await Customer.get_customer_data(login)
             return web.json_response(customer_info)
 
-
-
-# out = {
-#     'customer_login': login,
-#     'current_balance': customer_data['balance'],
-#     'customer_orders': customer_orders
-# }

@@ -111,19 +111,27 @@ class Customer(User):
     async def get_all_customer_orders(customer):
         """
             Возвращает словарь со всеми заказами пользователя.
-            {'Предмет': количество}
+            {'Предмет': [количество, картинка товара]}
         """
         if session.query(Customer).filter(Customer.login == customer).first():
             customer = session.query(Customer).filter(Customer.login == customer).first()
             items = session.query(Orders).filter(Orders.customer_login == customer.login).all()
             item_names = []
             orders = {}
+
             for item in items:
                 item_names.append(item.item_name)
                 if item.item_name in orders:
-                    orders[item.item_name] += 1
+                    orders[item.item_name][0] += 1
                 else:
-                    orders[item.item_name] = 1
+                    orders[item.item_name] = [0,0]
+                    orders[item.item_name][0] = 1
+                    
+            for name in orders.keys():
+                img = await Item.get_item_img(name)
+                orders[name][1] = img
+
+            print(orders)
             return orders
 
 class Orders(Base):
@@ -185,12 +193,13 @@ class Item(Base):
             item['description'] = session.query(Item).filter(Item.name == name).first().description
             items_info.append(item)
         return(items_info)
-            
+    
+    @staticmethod
+    async def get_item_img(name):
+        img = session.query(Item).filter(Item.name == name).first().item_img
+        return img
 
 
-
-
-session.close()
 
 
 
