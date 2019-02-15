@@ -33,7 +33,6 @@ var metronome = new Vue ({
     el: '#metronome',
     data: {
         metronome_work: false,
-
     },
     methods: {
 
