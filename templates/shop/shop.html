@@ -1,86 +1,36 @@
-<!DOCTYPE html>
-<html lang='en'>
-<head>
-    <meta charset='UTF-8'>
-    <title>
-        Shop
-    </title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
-    <link href="{{ static('css/vendor/bootstrap.min.css') }}" rel="stylesheet">
-    <script src="{{ static('js/vendor/bootstrap.min.js') }}"></script>
-    <link href="{{ static('css/base.css') }}" rel="stylesheet">
-</head>
 
 
-<body>
-<div>
-    <header class="navbar navbar-expand my_head">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Calculator</a>
-                </li>
-                <li class="nav-item">
-                        <a class="nav-link" href="/metronome">Metronome</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/shop">Shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/feedback">Feedback</a>
-                </li>
-            </ul>
-     
-        {% if not user %}
-        <ul class="navbar-nav  mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Sign in</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/signup">Sign up</a>
-            </li>
-        </ul>
-        {% endif %}
-        {% if user %}
-        <ul class="navbar-nav  mr-auto">
-            <li class="nav-item">
-                <span class="navbar-text">{{ user['login'] }}</span>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/logout">Sign out</a>
-            </li>
-        </ul>
-        {% endif %}
-    </header>
-</div>
+{% extends 'base.html' %}
+
+{% block title %}
+    shop
+{% endblock %}
+
+{% block content %}
 
 <br>
 <div class="container">
-    <div class="row pt-5 d-flex flex-row-reverse"> 
-        <form action="/shop" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
-            <label for="amount">Add caps</label>
-            <input class="form-control-lg" id="amount" name="amount" type="number" value="0" autofocus>
-            <input type="submit" value="Submit" class="btn" style="font-size: 20px">
-            {% if current_balance %}
-                <p>Balance: <strong>{{current_balance}}</strong></p>
-            {% endif %}
-            {% if customer_orders %}
-                <strong>My orders: </strong>
-                {% for order in customer_orders.items() %}
-                    <li>{{order[0]}} {{"x"}}{{order[1]}}</li>
-                {% endfor %}
-            {% endif %}
+    <div class="row">
+        <div class="col-7">
 
-            
-        </form>
+        </div>
+        <div class="col-5">
+            <form action="/shop" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+                <label for="amount">Add caps</label>
+                <input class="form-control-lg" id="amount" name="amount" type="number" value="0" autofocus step="0.01">
+                <input type="submit" value="Submit" class="btn-primary" style="font-size: 20px">
+
+                <p>Balance: <strong>{{current_balance}}</strong></p>
+
+                {% if customer_orders %}
+                    <strong>My orders: </strong>
+                    {% for order in customer_orders.items() %}
+                        <li>{{order[0]}} {{"x"}}{{order[1]}}</li>
+                    {% endfor %}
+                {% endif %} 
+            </form>
+        </div>
     </div>
 </div>
 
-
-
-
-
-<script src="{{ static('js/base.js') }}"></script>
-</body>
-</html>
+{% endblock %}
