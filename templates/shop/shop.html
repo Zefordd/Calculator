@@ -18,38 +18,95 @@
     </div>
 
     <div class="row pt-5 justify-content-between">
-
-
         <div class="col-9">
             <div class="row">
-                <item v-for="item in items" :item="item"></item>            
+                <h1>Shop</h1>
+            </div>
+            <div class="row pt-5">
+                <item v-for="item in items" :item="item" :key="item.id" @add_item_in_basket="add_item_in_basket_sos"></item>            
             </div>
         </div>
 
 
         <div class="col-3">
-            <h1>jkljkl</h1>
+            <div class="row">
+                <h1>Cart</h1>
+            </div>
+
+            <div class="row pt-5">
+                <basket :items_in_basket="items_in_basket" :all_sum="all_sum"></basket>
+            </div>
         </div>
     </div>
 </div>
 
+
 <template id="item-template">
-    <div class="col-4" >
-        <div class="row pt-3">
+    <div class="col-4">
+        <div class="row">
             <img :src="url" width="100" height="111">
         </div>
         <div class="row">
             <div class="col">
-                <h2>[[ item.name ]]</h2>
+                <h4>[[ item.name ]]</h4>
             </div>
             <div class="col">
-                <button class="btn-primary">Obey: [[ item.cost ]]$</button>
+                <button class="btn btn-success" @click="click_on_buy" v-show="in_basket_buttom" style="font-size: 15px">[[ item.cost ]]$</button>
+                <div class="row justify-content-center" v-show="!in_basket_buttom">
+                    <div class="col-4">
+                        <button class="btn btn-primary" @click="minus_one">-</button>
+                    </div>
+                    <div class="col-4">
+                        <h4>[[ number ]]</h4>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary" @click="plus_one">+</button>
+                    </div>
+                </div>
             </div>            
         </div>
         <div class="row">
             <p>[[ item.description ]]</p>
         </div>
     </div>
+</template>
+
+
+<template id="basket-template">
+    <div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-danger" @click="click">Buy: [[ all_sum ]]$</button>
+            </div>
+            <div class="col">
+                
+            </div>            
+        </div>
+
+        
+        <item-in-basket v-for="item in items_in_basket" v-bind:item="item"></item-in-basket>
+
+    </div>
+</template>
+
+    
+
+<template id="item-in-basket-template">
+    <div v-if="item != 'a'">
+        <div class="row pt-5">
+            <div class="col">
+                <h6> [[ item.name ]] </h6>
+            </div>
+            <div class="col">
+                <h6>[[ item.cost ]]$x[[ item.number ]] </h6>
+            </div>            
+        </div>
+        <div class="row justify-content-center">
+            <h6>[[ item.sum ]]$</h6>
+        </div>
+    </div>
+
+    
 </template>
 
 

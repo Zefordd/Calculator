@@ -43,8 +43,8 @@
                 <h1>[[  beats_per_minute ]]<small style="font-size: 14px; color: rgb(151, 144, 144)">BPM</small></h1>
             </div>
             <div class="col-6">
-                <button class="btn btn-primary float-right" v-if="!metronomeWork" @click="start_metronome">Play</button>
-                <button class="btn btn-danger float-right" v-if="metronomeWork" @click="metronomeWork = false">Stop</button>                         
+                <button class="btn btn-primary float-right" v-show="!metronomeWork" @click="start_metronome">Play</button>
+                <button class="btn btn-danger float-right" v-show="metronomeWork" @click="metronomeWork = false">Stop</button>                         
             </div>
         </div>
         <div class="row pt-3 m-4 py-4">
