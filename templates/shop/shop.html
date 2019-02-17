@@ -76,7 +76,7 @@
     <div>
         <div class="row">
             <div class="col">
-                <button class="btn btn-danger" @click="click">Buy: [[ all_sum ]]$</button>
+                <button class="btn btn-danger" @click="click" :disabled="all_sum === 0">Buy: [[ all_sum ]]$</button>
             </div>
             <div class="col">
                 

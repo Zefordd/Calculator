@@ -85,13 +85,15 @@ var shop = new Vue ({
     methods: {
         get_all_items_and_user: function() {
             this.$http.get(this.items_url).then(function(response) {
-                console.log(response);
                 this.items = response.data;      
             }, function() {
                 console.log('no products');                 
             })
+
             this.$http.get(this.user_url).then(function(response) {
                 this.user = response.data;
+                console.log(this.user.login);
+                this.items_to_form.login = this.user.login;
                 this.login = true;            
             }, function() {
                 console.log('no user'); 
