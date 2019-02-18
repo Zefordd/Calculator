@@ -4,6 +4,11 @@ Vue.use(VueResource);
 //--basket--
 Vue.component('basket', {
     props: ['items_in_basket', 'all_sum'],
+    methods: {
+        click: function() {            
+            console.log(this.items_in_basket);
+        },
+    },
     template: '#basket-template',
     delimiters: ['[[',']]'],
 })
@@ -41,19 +46,22 @@ Vue.component('item', {
         click_on_buy: function() {            
             this.in_basket_buttom = false;
             this.number = 1;
-            this.to_parent();
+            this.to_parent('plus');
         },
         plus_one: function() {
             this.number += 1;
-            this.to_parent();
+            this.to_parent('plus');
         },
         minus_one: function() {
             this.number -= 1;
             if (this.number === 0) {
                 this.in_basket_buttom = true;
-                this.to_parent();
+                this.to_parent('minus');
+                delete shop.items_in_basket[this.item.name];
+                shop.items_in_basket.crutch = 'b'; // вью не умеет рендерить, когда я удаляю что-то по ключю, поэтому тут костыль
+                shop.items_in_basket.crutch = 'a';
             } else {
-                this.to_parent();
+                this.to_parent('minus');
             }            
         }
     },
@@ -69,11 +77,10 @@ var shop = new Vue ({
         user_url: 'http://localhost:8080/shop/customer_info',
         items: [],
         user: [],
-        items_in_basket: [],
-        items_to_form: JSON.stringify(this.items_in_basket),
+        items_in_basket: {crutch: 'a'},
+        items_to_form: {},
         login: false,
         all_sum: 0,
-
     },
     methods: {
         get_all_items_and_user: function() {
@@ -85,31 +92,27 @@ var shop = new Vue ({
 
             this.$http.get(this.user_url).then(function(response) {
                 this.user = response.data;
+                console.log(this.user.login);
+                this.items_to_form.login = this.user.login;
                 this.login = true;            
             }, function() {
-                this.login = false;   
-                console.log('no user');                             
+                console.log('no user'); 
+                this.login = false;               
             })
         },
 
-        add_item_in_basket_sos: function(data) {
-            i = 0
-            for (item of this.items_in_basket) {
-                if (item.name === data.name) {
-                    if (data.number === 0) {
-                        this.items_in_basket.splice(i, 1);
-                        return;
-                    } else {
-                        this.items_in_basket[i].number = data.number;
-                        this.items_in_basket[i].cost_multiply_number = data.cost * data.number;
-                        return;
-                    }
-                }
-                i += 1;
-            }          
-            this.items_in_basket.push({name: data.name, cost: data.cost, number: data.number, cost_multiply_number: data.cost * data.number});
-            //this.data = JSON.stringify(this.items_in_basket);
-            //console.log(this.data);
+        add_item_in_basket_sos: function(data, sign) {
+            Vue.set(this.items_in_basket, data.name, {cost: data.cost, number: data.number, name: data.name, sum: data.cost * data.number});
+            Vue.set(this.items_to_form, data.name, data.number);
+
+            // больше костылей богу костылей
+            if (sign === 'plus') {
+                this.all_sum += data.cost;
+            } else {
+                this.all_sum -= data.cost;
+            }
+
+            console.log(this.items_to_form);
         },          
     },
     created: function() {

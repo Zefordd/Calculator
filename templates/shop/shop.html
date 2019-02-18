@@ -76,7 +76,7 @@
     <div>
         <div class="row">
             <div class="col">
-                <button class="btn btn-danger" @click="click" :disabled="all_sum === 0">Buy: [[ all_sum ]]$</button>
+                <button class="btn btn-danger" :disabled="all_sum === 0">Buy: [[ all_sum ]]$</button>
             </div>
             <div class="col">
                 
@@ -102,7 +102,7 @@
             </div>            
         </div>
         <div class="row justify-content-center">
-            <h6>[[ item.sum ]]$</h6>
+            <h6>[[ item.cost_multiply_number ]]$</h6>
         </div>
     </div>
 
