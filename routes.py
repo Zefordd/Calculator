@@ -2,7 +2,7 @@ from auth.views import Login, Logout, Signup
 from main_page.views import Index, Spiral, Metronome
 from main_page.user_file import User_file
 from feedback.views import Feedback
-from shop.view import Shop, New_item, Items_info, Customer_info, Make_order
+from shop.view import Shop, New_item, Items_info, Customer_info, Make_order, Delete_orders
 from settings import BaseConfig
 
 def setup_routes(app):
@@ -28,6 +28,7 @@ def setup_routes(app):
     app.router.add_get('/shop/customer_info', Customer_info.get)
 
     app.router.add_post('/make_order', Make_order.post)
+    app.router.add_post('/delete_orders', Delete_orders.post)
     
 
 

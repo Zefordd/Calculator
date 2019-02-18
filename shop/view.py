@@ -77,8 +77,26 @@ class Customer_info(web.View):
 
 class Make_order(web.View):
     async def post(self):
+        import ast
+
         data = await self.post()
         orders = data['make_order']
-        print('\n\n', orders)
+        orders = ast.literal_eval(orders)
+        session = await get_session(self)
+        login = session['user']['login']
+        for order, number in orders.items():
+            for value in range(1, number+1):
+                await Orders.make_order(login, order)
+
+
+        location = self.app.router['shop'].url_for()
+        return web.HTTPFound(location=location)
+
+
+class Delete_orders(web.View):
+    async def post(self):
+        session = get_session(self)
+        login = session['user']['login']
+        await Orders.delete_customer_orders(login)
         location = self.app.router['shop'].url_for()
         return web.HTTPFound(location=location)
