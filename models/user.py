@@ -156,6 +156,17 @@ class Orders(Base):
             pass
 
     @staticmethod
+    async def order_price(orders, login):
+        price = 0
+        for name, multiplier in orders.items():
+            price += multiplier*session.query(Item).filter(Item.name == name).first().cost
+
+        current_balance = session.query(Customer).filter(Customer.login == login).first().balance or 0
+        session.query(Customer).filter(Customer.login == login).update({"balance": round(current_balance - price, 2)})
+        session.commit()
+
+
+    @staticmethod
     async def delete_customer_orders(login):
         session.query(Orders).filter(Orders.customer_login == login).delete()
         session.commit()

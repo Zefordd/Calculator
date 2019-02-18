@@ -87,7 +87,7 @@ class Make_order(web.View):
         for order, number in orders.items():
             for value in range(1, number+1):
                 await Orders.make_order(login, order)
-
+        await Orders.order_price(orders, login)
 
         location = self.app.router['shop'].url_for()
         return web.HTTPFound(location=location)
