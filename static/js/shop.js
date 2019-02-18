@@ -3,7 +3,11 @@ Vue.use(VueResource);
 
 //--basket--
 Vue.component('basket', {
-
+    data: function() {
+        return {
+        data: '',
+        }
+    },
     props: ['items_in_basket', 'all_sum'],
 
     methods: {
@@ -12,8 +16,7 @@ Vue.component('basket', {
             for (item of this.items_in_basket) {
                 items_to_form[item.name] = item.number;
             }
-
-            this.$emit('add_to_back', items_to_form);
+            this.data = JSON.stringify(items_to_form)
         },
     },
     template: '#basket-template',
@@ -131,11 +134,6 @@ var shop = new Vue ({
             }
             return sum;
         },  
-        
-        add_to_back_sos: function(data) {
-            this.items_to_form = JSON.stringify(data);
-            console.log('Done')
-        }
     },
     created: function() {
         this.get_all_items_and_user();

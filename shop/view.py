@@ -73,3 +73,12 @@ class Customer_info(web.View):
             customer_info = await Customer.get_customer_data(login)
             return web.json_response(customer_info)
 
+
+
+class Make_order(web.View):
+    async def post(self):
+        data = await self.post()
+        orders = data['make_order']
+        print('\n\n', orders)
+        location = self.app.router['shop'].url_for()
+        return web.HTTPFound(location=location)

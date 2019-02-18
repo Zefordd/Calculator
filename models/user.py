@@ -131,7 +131,6 @@ class Customer(User):
                 img = await Item.get_item_img(name)
                 orders[name][1] = img
 
-            print(orders)
             return orders
 
 class Orders(Base):
