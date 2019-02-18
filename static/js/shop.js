@@ -3,7 +3,19 @@ Vue.use(VueResource);
 
 //--basket--
 Vue.component('basket', {
+
     props: ['items_in_basket', 'all_sum'],
+
+    methods: {
+        click_on_buy_all: function() {
+            items_to_form = {}
+            for (item of this.items_in_basket) {
+                items_to_form[item.name] = item.number;
+            }
+
+            this.$emit('add_to_back', items_to_form);
+        },
+    },
     template: '#basket-template',
     delimiters: ['[[',']]'],
 })
@@ -36,7 +48,7 @@ Vue.component('item', {
 
     methods: {
         to_parent: function(sign) {
-            this.$emit('add_item_in_basket', {name: this.item.name, cost: this.item.cost, number: this.number}, sign);
+            this.$emit('add_item_in_basket', {name: this.item.name, cost: this.item.cost, number: this.number});
         },
         click_on_buy: function() {            
             this.in_basket_buttom = false;
@@ -98,19 +110,32 @@ var shop = new Vue ({
                 if (item.name === data.name) {
                     if (data.number === 0) {
                         this.items_in_basket.splice(i, 1);
+                        this.all_sum = this.all_item_in_basket_cost();
                         return;
                     } else {
                         this.items_in_basket[i].number = data.number;
                         this.items_in_basket[i].cost_multiply_number = data.cost * data.number;
+                        this.all_sum = this.all_item_in_basket_cost();
                         return;
                     }
                 }
                 i += 1;
             }          
             this.items_in_basket.push({name: data.name, cost: data.cost, number: data.number, cost_multiply_number: data.cost * data.number});
-            //this.data = JSON.stringify(this.items_in_basket);
-            //console.log(this.data);
-        },          
+            this.all_sum = this.all_item_in_basket_cost();
+        },  
+        all_item_in_basket_cost: function() {
+            sum = 0;
+            for (item of this.items_in_basket) {
+                sum += item.cost_multiply_number;
+            }
+            return sum;
+        },  
+        
+        add_to_back_sos: function(data) {
+            this.items_to_form = JSON.stringify(data);
+            console.log('Done')
+        }
     },
     created: function() {
         this.get_all_items_and_user();

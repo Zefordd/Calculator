@@ -34,7 +34,7 @@
             </div>
 
             <div class="row pt-5">
-                <basket :items_in_basket="items_in_basket" :all_sum="all_sum"></basket>
+                <basket :items_in_basket="items_in_basket" :all_sum="all_sum" @add_to_back="add_to_back_sos"></basket>
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
     <div>
         <div class="row">
             <div class="col">
-                <button class="btn btn-danger" :disabled="all_sum === 0">Buy: [[ all_sum ]]$</button>
+                <button class="btn btn-danger" :disabled="all_sum === 0" @click="click_on_buy_all">Buy: [[ all_sum ]]$</button>
             </div>
             <div class="col">
                 
