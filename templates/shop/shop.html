@@ -19,6 +19,14 @@
         <form action="delete_orders" method="post" accept-charset="utf-8" enctype="multipart/form-data">
             <button class="btn btn-primary">Delete orders</button>
         </form>
+
+        <form action="/shop" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+            <label for="amount">Add caps</label>
+            <input class="form-control-lg" id="amount" name="amount" type="number" value="0" autofocus step="0.01">
+            <input type="submit" value="Submit" class="btn-primary" style="font-size: 20px">
+
+            <p>Balance: <strong>{{current_balance}}</strong></p>
+        </form>
     </div>
 
     <div class="row pt-5 justify-content-between">

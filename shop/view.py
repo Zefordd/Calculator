@@ -95,7 +95,7 @@ class Make_order(web.View):
 
 class Delete_orders(web.View):
     async def post(self):
-        session = get_session(self)
+        session = await get_session(self)
         login = session['user']['login']
         await Orders.delete_customer_orders(login)
         location = self.app.router['shop'].url_for()
