@@ -13,8 +13,12 @@
             <input id="item_cost" name="item_cost" type="number" value="" placeholder="cost">
             <input id="item_description" name="item_description" type="text" value="" placeholder="description">
             <input id="item_img" name="item_img" type="file" value="" >
-            <input type="submit" value="submit"/>      
-        </form>        
+            <input type="submit" value="submit"/>
+        </form> 
+
+        <form action="delete_orders" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+            <button class="btn btn-primary">Delete orders</button>
+        </form>
     </div>
 
     <div class="row pt-5 justify-content-between">
@@ -81,7 +85,7 @@
                 </form>
             </div>
             <div class="col">
-                
+                <button class="btn btn-primary">Delete cart</button>
             </div>            
         </div>
 
