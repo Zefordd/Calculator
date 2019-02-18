@@ -1,5 +1,23 @@
 Vue.use(VueResource);
 
+//--orders--
+Vue.component('my-orders', {
+    data: function() {
+        return {
+
+        }
+    },
+    computed: {
+        url: function () {
+            return 'http://localhost:8080/static' + this.order[1];
+          }
+    },
+    props: ['order'],
+
+    template: '#my-orders-template',
+    delimiters: ['[[',']]'],
+})
+
 
 //--basket--
 Vue.component('basket', {
@@ -85,10 +103,8 @@ var shop = new Vue ({
         items: [],
         user: [],
         items_in_basket: [],
-        items_to_form: JSON.stringify(this.items_in_basket),
         login: false,
         all_sum: 0,
-
     },
     methods: {
         get_all_items_and_user: function() {
@@ -100,6 +116,9 @@ var shop = new Vue ({
 
             this.$http.get(this.user_url).then(function(response) {
                 this.user = response.data;
+                for (info in this.user.orders) {
+                    this.user.orders[info].push(info);
+                }
                 this.login = true;            
             }, function() {
                 this.login = false;   
