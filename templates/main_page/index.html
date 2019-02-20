@@ -7,9 +7,31 @@
 
 
 {% block content %}
-    <head>
-        <link href="{{ static('css/calculator.css') }}" rel="stylesheet">
-    </head>
+<head>
+    <link href="{{ static('css/calculator.css') }}" rel="stylesheet">
+</head>
+
+    <div class="container">    
+        <form action="/save_file" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+            <input id="user_file" name="user_file" type="file" value="" style="width: 132px">
+            <input type="submit" value="submit"/>
+            {% if user and user.file_url %}
+                <button ><a href="{{ url('static', filename=user.file_url) }}" download style="text-decoration: none">Скачать файл</a></button>
+                <button ><a href="{{ url('static', filename=user.file_url + '.zip') }}" download style="text-decoration: none">Скачать архив</a></button>
+            {% endif %}
+                
+            {% if not user %}
+                <strong>{{ user_file_error }}</strong>
+            {% endif %}
+        </form>
+
+        {% if user.file_url %}
+            <strong>your file: {{ user.file_url[::-1][: user.file_url[::-1].find('/')][::-1] }}</strong>
+            <br>
+            <strong>size difference: {{delta_size}} byte</strong>
+        {% endif %}
+        
+    </div>
 
     <div class="container pt-5">
         <div id="calculator">
@@ -64,7 +86,7 @@
                             <div class="col-7">
                                 
                                 <form action="/spiral"  method="post" accept-charset="utf-8" enctype="multipart/form-data">
-                                    <input id="dimension" name="dimension" type="number" value="">
+                                    <input id="dimension" name="dimension" type="number" value="5">
                                     <input type="submit" value="Закрутить">
                                 </form>
                                 <br>

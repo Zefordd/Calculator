@@ -11,7 +11,7 @@
     <div class="row pt-5 d-flex justify-content-center">       
         <form action="/login" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
             <div class="row pt-5 justify-content-center">
-                    <h5 style="font-size: 40px">Вход</h5>
+                    <h5 style="font-size: 40px">Log in</h5>
             </div>
 
             <div class="row pt-3 justify-content-center">
@@ -38,12 +38,14 @@
                 <input type="submit" value="Login" class="btn btn-success btn-sm btn-block" style="font-size: 20px">
             </div>
         </form>
-    </div>
 
+    </div>
+    <div class="row pt-4 justify-content-center"> 
+            <h2>{{ error }}</h2>   
+        </div>
     
     <br><br><br><br><br>
-    <div class="row pt-5 justify-content-center">
-        <h1>{{ exception }}</h1>    
+    <div class="row pt-5 justify-content-center"> 
         <h4>{{ last_visit }}</h4>
     </div>
 </div>

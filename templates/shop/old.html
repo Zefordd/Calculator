@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    shop
+{% endblock %}
+
+{% block content %}
+
+<div class="container" id="shop">
+    <div class="row">
+        <form action="/save_item" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+            <input id="item_name" name="item_name" type="text" value="" placeholder="name">
+            <input id="item_cost" name="item_cost" type="number" value="" placeholder="cost">
+            <input id="item_description" name="item_description" type="text" value="" placeholder="description">
+            <input id="item_img" name="item_img" type="file" value="" >
+            <input type="submit" value="submit"/>
+        </form> 
+
+        <form action="delete_orders" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+            <button class="btn btn-primary">Delete orders</button>
+        </form>
+
+        <form action="/shop" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+            <label for="amount">Add caps</label>
+            <input class="form-control-lg" id="amount" name="amount" type="number" value="0" autofocus step="0.01">
+            <input type="submit" value="Submit" class="btn-primary" style="font-size: 20px">
+
+            <p>Balance: <strong>{{current_balance}}</strong></p>
+        </form>
+    </div>
+
+    <div class="row pt-5 justify-content-between">
+        <div class="col-9">
+            <div class="row">
+                <h1>Shop</h1>
+            </div>
+            <div class="row pt-5">
+                <item v-for="item in items" :item="item" :key="item.id" @add_item_in_basket="add_item_in_basket_sos"></item>            
+            </div>
+        </div>
+
+
+        <div class="col-3">
+            <div class="row">
+                <h1>Cart</h1>
+            </div>
+
+            <div class="row pt-5">
+                <basket :items_in_basket="items_in_basket" :all_sum="all_sum"></basket>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<template id="item-template">
+    <div class="col-4">
+        <div class="row">
+            <img :src="url" width="100" height="111">
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4>[[ item.name ]]</h4>
+            </div>
+            <div class="col">
+                <button class="btn btn-success" @click="click_on_buy" v-show="in_basket_buttom" style="font-size: 15px">[[ item.cost ]]$</button>
+                <div class="row justify-content-center" v-show="!in_basket_buttom">
+                    <div class="col-4">
+                        <button class="btn btn-primary" @click="minus_one">-</button>
+                    </div>
+                    <div class="col-4">
+                        <h4>[[ number ]]</h4>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary" @click="plus_one">+</button>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="row">
+            <p>[[ item.description ]]</p>
+        </div>
+    </div>
+</template>
+
+
+<template id="basket-template">
+    <div>
+        <div class="row">
+            <div class="col">
+                <form action="/make_order" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                    <button class="btn btn-danger" :disabled="all_sum === 0" @click="click_on_buy_all" :value="data" name="make_order" id="make_order">Buy: [[ all_sum ]]$</button>
+                </form>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary">Delete cart</button>
+            </div>            
+        </div>
+
+        
+        <item-in-basket v-for="item in items_in_basket" v-bind:item="item"></item-in-basket>
+
+    </div>
+</template>
+
+    
+
+<template id="item-in-basket-template">
+    <div v-if="item != 'a'">
+        <div class="row pt-5">
+            <div class="col">
+                <h6> [[ item.name ]] </h6>
+            </div>
+            <div class="col">
+                <h6>[[ item.cost ]]$x[[ item.number ]] </h6>
+            </div>            
+        </div>
+        <div class="row justify-content-center">
+            <h6>[[ item.cost_multiply_number ]]$</h6>
+        </div>
+    </div>
+
+    
+</template>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+<script src="{{ static('js/shop.js') }}"></script>
+{% endblock %}
