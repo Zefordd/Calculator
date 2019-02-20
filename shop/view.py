@@ -84,10 +84,11 @@ class Make_order(web.View):
         orders = ast.literal_eval(orders)
         session = await get_session(self)
         login = session['user']['login']
-        for order, number in orders.items():
-            for value in range(1, number+1):
-                await Orders.make_order(login, order)
-        await Orders.order_price(orders, login)
+
+        if await Orders.order_price(orders, login):
+            for order, number in orders.items():
+                for value in range(1, number+1):
+                    await Orders.make_order(login, order)
 
         location = self.app.router['shop'].url_for()
         return web.HTTPFound(location=location)

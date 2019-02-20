@@ -162,8 +162,13 @@ class Orders(Base):
             price += multiplier*session.query(Item).filter(Item.name == name).first().cost
 
         current_balance = session.query(Customer).filter(Customer.login == login).first().balance or 0
-        session.query(Customer).filter(Customer.login == login).update({"balance": round(current_balance - price, 2)})
-        session.commit()
+        if current_balance - price >= 0:
+            session.query(Customer).filter(Customer.login == login).update({"balance": round(current_balance - price, 2)})
+            session.commit()
+            return True
+        else:
+            return False
+
 
 
     @staticmethod
