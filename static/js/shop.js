@@ -26,7 +26,7 @@ Vue.component('basket', {
         data: '',
         }
     },
-    props: ['items_in_basket', 'all_sum'],
+    props: ['items_in_basket', 'all_sum', 'flag'],
 
     methods: {
         click_on_buy_all: function() {
@@ -105,6 +105,7 @@ var shop = new Vue ({
         items_in_basket: [],
         login: false,
         all_sum: 0,
+        flag: true,
     },
     methods: {
         get_all_items_and_user: function() {
@@ -145,12 +146,24 @@ var shop = new Vue ({
             }          
             this.items_in_basket.push({name: data.name, cost: data.cost, number: data.number, cost_multiply_number: data.cost * data.number});
             this.all_sum = this.all_item_in_basket_cost();
+            
+
+            
         },  
-        all_item_in_basket_cost: function() {
+        all_item_in_basket_cost: function() {          
             sum = 0;
             for (item of this.items_in_basket) {
                 sum += item.cost_multiply_number;
             }
+
+            if (sum > this.user.balance) { //проверка на нехватку денег
+                this.flag = false;
+            } else {
+                this.flag = true;
+            }
+
+            console.log(this.flag);
+
             return sum;
         },  
     },
