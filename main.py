@@ -41,7 +41,7 @@ def main():
     app['config'] = BaseConfig
     logging.basicConfig(level=logging.DEBUG)
 
-    web.run_app(app, host='localhost', port=8080)
+    web.run_app(app, host='0.0.0.0', port=8080)
 
 
 async def on_start(app):
