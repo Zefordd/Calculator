@@ -1,9 +1,8 @@
 import base64
 import logging
 
-import asyncio
-import asyncpgsa
 import aiohttp_jinja2
+import asyncpgsa
 import jinja2
 from aiohttp import web
 from aiohttp_session import setup, get_session
@@ -34,7 +33,7 @@ def main():
         app,
         loader=jinja2.PackageLoader(package_name='main', package_path='templates'),
         context_processors=[current_user])
-    
+
     setup_routes(app)
     setup_static_routes(app)
     app['static_root_url'] = '/static'
@@ -42,11 +41,13 @@ def main():
     app['config'] = BaseConfig
     logging.basicConfig(level=logging.DEBUG)
 
-    web.run_app(app, host='localhost', port=8080)
+    web.run_app(app, host='0.0.0.0', port=8080)
+
 
 async def on_start(app):
     config = app['config']
     app['db'] = await asyncpgsa.create_pool(dsn=config['database_uri'])
+
 
 async def on_shutdown(app):
     await app['db'].close()
@@ -54,4 +55,3 @@ async def on_shutdown(app):
 
 if __name__ == '__main__':
     main()
-    
